@@ -1,17 +1,18 @@
 {
   "site": {
     "businessName": "Siong Design",
-    "tagline": "Premium Carpentry • Factory Price",
+    "tagline": "Premium Carpentry \u2022 Factory Price",
     "phone": "+65 8451 4057",
     "whatsappNumber": "6584514057",
+    "facebookUrl": "https://www.facebook.com/profile.php?id=61575290054499",
+    "address": "71 Woodlands Industrial Park E9 #05-08 A/B, S757048, Wave 9, Singapore",
+    "defaultMetaDescription": "Siong Design provides premium carpentry, kitchen cabinets, wardrobes, TV feature walls and custom carpentry in Singapore.",
     "whatsappButtonText": "WhatsApp Us",
     "whatsappDefaultMessage": "Hi Siong Design, I would like to request a quotation.",
     "showWhatsappFloat": true,
-    "facebookUrl": "https://www.facebook.com/profile.php?id=61575290054499",
     "facebookButtonText": "Facebook: Siong Design",
     "showFacebookButton": true,
-    "address": "71 Woodlands Industrial Park E9 #05-08 A/B, S757048, Wave 9, Singapore",
-    "defaultMetaDescription": "Siong Design provides premium carpentry, kitchen cabinets, wardrobes, TV feature walls and custom carpentry in Singapore."
+    "adminPassword": "siongadmin"
   },
   "navigation": [
     {
@@ -52,7 +53,7 @@
     }
   ],
   "home": {
-    "heroTag": "HDB • Condo • Landed • Commercial",
+    "heroTag": "HDB \u2022 Condo \u2022 Landed \u2022 Commercial",
     "heroTitle": "Premium carpentry at direct factory value.",
     "heroLead": "Siong Design builds kitchen cabinets, wardrobes, TV feature walls and custom carpentry for Singapore homes and businesses, with clean workmanship, low formaldehyde options and transparent quotation support.",
     "primaryButtonText": "Calculate My Cost",
@@ -90,8 +91,20 @@
         "value": 220
       },
       {
+        "label": "HDB Kitchen Cabinet - Top Unit Standard from $180/ft run",
+        "value": 180
+      },
+      {
+        "label": "HDB Kitchen Cabinet - Bottom Unit Standard from $220/ft run",
+        "value": 220
+      },
+      {
         "label": "HDB TV Feature Wall from $280/ft run",
         "value": 280
+      },
+      {
+        "label": "HDB Commercial Display from $300/ft run",
+        "value": 300
       }
     ],
     "mobileTypes": [
@@ -108,8 +121,20 @@
         "value": 220
       },
       {
+        "label": "HDB Kitchen Cabinet - Top Unit Standard from $180/ft run",
+        "value": 180
+      },
+      {
+        "label": "HDB Kitchen Cabinet - Bottom Unit Standard from $220/ft run",
+        "value": 220
+      },
+      {
         "label": "HDB TV Feature Wall from $280/ft run",
         "value": 280
+      },
+      {
+        "label": "HDB Commercial Display from $300/ft run",
+        "value": 300
       }
     ],
     "categories": [
@@ -130,8 +155,20 @@
             "value": 220
           },
           {
+            "label": "HDB Kitchen Cabinet - Top Unit Standard from $180/ft run",
+            "value": 180
+          },
+          {
+            "label": "HDB Kitchen Cabinet - Bottom Unit Standard from $220/ft run",
+            "value": 220
+          },
+          {
             "label": "HDB TV Feature Wall from $280/ft run",
             "value": 280
+          },
+          {
+            "label": "HDB Commercial Display from $300/ft run",
+            "value": 300
           }
         ]
       },
@@ -152,24 +189,166 @@
             "value": 240
           },
           {
+            "label": "Condo Kitchen Cabinet - Top Unit Premium from $200/ft run",
+            "value": 200
+          },
+          {
+            "label": "Condo Kitchen Cabinet - Bottom Unit Premium from $240/ft run",
+            "value": 240
+          },
+          {
             "label": "Condo TV Feature Wall from $300/ft run",
             "value": 300
+          },
+          {
+            "label": "Condo Commercial Display from $320/ft run",
+            "value": 320
           }
         ]
+      }
+    ],
+    "sinteredStoneOptions": [
+      {
+        "label": "Not Required",
+        "value": 0
       },
       {
-        "label": "Condo",
-        "value": "new",
-        "items": [
-          {
-            "label": "New option from $100/ft run",
-            "value": 100
-          }
-        ]
+        "label": "Width \u2264 700mm +$100/ft run",
+        "value": 100
+      },
+      {
+        "label": "Width 701-900mm +$150/ft run",
+        "value": 150
+      },
+      {
+        "label": "Width 901-1200mm +$180/ft run",
+        "value": 180
+      }
+    ],
+    "heightOptions": [
+      {
+        "label": "Standard",
+        "value": 1
+      },
+      {
+        "label": "Tall / More Compartments +15%",
+        "value": 1.15
+      },
+      {
+        "label": "Complex Design +30%",
+        "value": 1.3
+      }
+    ],
+    "materialOptions": [
+      {
+        "label": "Standard Laminate",
+        "value": 1
+      },
+      {
+        "label": "Premium Laminate +18%",
+        "value": 1.18
+      },
+      {
+        "label": "Eco Friendly Low Formaldehyde +28%",
+        "value": 1.28
+      },
+      {
+        "label": "High-End Special Finish +35%",
+        "value": 1.35
+      }
+    ],
+    "internalOptions": [
+      {
+        "label": "Premium: Laminate Both Sides +12%",
+        "value": 1.12
+      },
+      {
+        "label": "Basic Internal Finish",
+        "value": 1
+      }
+    ],
+    "accessoryOptions": [
+      {
+        "label": "Standard Hinges Included",
+        "value": 0
+      },
+      {
+        "label": "Soft-Closing / Drawer Set +$350",
+        "value": 350
+      },
+      {
+        "label": "Sliding / Special Mechanism +$800",
+        "value": 800
+      }
+    ],
+    "installationOptions": [
+      {
+        "label": "Standard Installation +$350",
+        "value": 350
+      },
+      {
+        "label": "Large / Complex Installation +$650",
+        "value": 650
+      },
+      {
+        "label": "Exclude Installation",
+        "value": 0
       }
     ]
   },
   "faq": [
+    {
+      "question": "How do I get an accurate quotation?",
+      "answer": "Send your floor plan, area photos, rough measurements and preferred design. Siong Design can advise an estimated range before site measurement."
+    },
+    {
+      "question": "Is the calculator price final?",
+      "answer": "No. It is for budgeting only. Final price depends on measurement, material, accessories, layout complexity and installation condition."
+    },
+    {
+      "question": "How is kitchen cabinet pricing calculated?",
+      "answer": "Kitchen top cabinet and bottom cabinet are treated as separate items. For example, 10 ft top + 10 ft bottom means two separate 10 ft runs."
+    },
+    {
+      "question": "What does per foot run mean?",
+      "answer": "Foot run usually refers to the horizontal length of the cabinet or wardrobe. Height, depth and internal layout may affect final price."
+    },
+    {
+      "question": "Do you provide free measurement?",
+      "answer": "Yes, for suitable enquiries. Customers can WhatsApp photos and requirements first before arranging measurement."
+    },
+    {
+      "question": "What materials can I choose?",
+      "answer": "Options may include standard laminate, premium laminate, low formaldehyde board and special finishes."
+    },
+    {
+      "question": "What is included in the wardrobe promo?",
+      "answer": "The wardrobe promo is for selected casement wardrobe works from $220/ft. Terms and conditions apply."
+    },
+    {
+      "question": "How long does fabrication take?",
+      "answer": "Timeline depends on project size, material availability and site readiness. A schedule is advised after confirmation."
+    },
+    {
+      "question": "Can I customise the layout?",
+      "answer": "Yes. Shelves, drawers, hanging areas, display sections and LED lighting can be discussed."
+    },
+    {
+      "question": "Do you handle commercial carpentry?",
+      "answer": "Yes. Siong Design supports office, retail, pantry, showroom, gallery and exhibition carpentry works."
+    },
+    {
+      "question": "Are BLUM parts included in the estimate?",
+      "answer": "BLUM parts are charged separately unless stated in the quotation. Pricing follows BLUM\u2019s Recommended Retail Price from connect.blum.com, plus GST, plus an additional 5% handling and coordination charge."
+    },
+    {
+      "question": "What board and finishing standard do you use?",
+      "answer": "Our boards come with edge binding, internal and external laminate, E0 formaldehyde-free wood, ABS trimming doors, soft-close drawer options and soft-close hinges based on the confirmed package."
+    },
+    {
+      "question": "Are kitchen top and bottom cabinets counted together?",
+      "answer": "No. Top cabinet and bottom cabinet are treated as separate carpentry items and are calculated separately by foot run."
+    },
     {
       "question": "Why do we use melamine board instead of cheap PVC board?",
       "answer": "For most dry interior carpentry, melamine board gives a more solid, premium and cabinet-like finish compared with cheap PVC board. It usually has better screw holding, a wider choice of colours and textures, and feels more suitable for wardrobes, kitchen cabinets, TV consoles and storage cabinets. PVC board can still be useful in wet areas, but cheap PVC boards may feel more hollow, flex more easily and may not look as refined."
@@ -179,12 +358,12 @@
       "answer": "We use different plywood thicknesses depending on the cabinet part and purpose. For backing panels, we use 6mm plywood because it keeps the cabinet neat and lightweight while providing proper rear support. For internal shelving, we use 9mm solid plywood because shelves need better strength and stability to hold daily items."
     },
     {
-      "question": "Is melamine board waterproof?",
-      "answer": "Melamine board is water-resistant on the surface, but it is not fully waterproof if water enters through exposed edges or joints. That is why proper edging, sealing and workmanship are important, especially around kitchen sink areas."
+      "question": "Why do we use 6mm plywood for backing?",
+      "answer": "6mm plywood is suitable for cabinet backing because it keeps the cabinet neat and lightweight while still giving the rear panel proper support. It is commonly used for back panels because this area does not carry the same load as shelves."
     },
     {
-      "question": "Which material is better for kitchen cabinets?",
-      "answer": "For dry kitchen areas, melamine board is usually a good choice because it looks clean, feels solid and is cost-effective. For wet areas such as sink cabinets or laundry areas, waterproof materials or better sealed plywood options may be more suitable."
+      "question": "Why do we use 9mm solid plywood for internal shelving?",
+      "answer": "Internal shelves need to hold daily items, so 9mm solid plywood gives better strength and stability compared with thinner backing material. It helps the shelf feel more solid and reduces flexing during normal use."
     }
   ],
   "ai": {
@@ -295,28 +474,80 @@
       ]
     }
   ],
-  "pages": {},
-  "proof": [
-    {
-      "title": "From $110/ft",
-      "text": "Kitchen top/bottom promo, counted separately"
+  "pages": {
+    "services": {
+      "title": "Services organised by what customers need.",
+      "lead": "Simple categories make the website easier to scan and help customers quickly choose what to enquire about.",
+      "cards": [
+        {
+          "title": "Kitchen Cabinets",
+          "text": "Top and bottom cabinets, tall units, drawers, sink and hob planning."
+        },
+        {
+          "title": "Wardrobes",
+          "text": "Casement wardrobes, full-height wardrobes, shelves, drawers and LED displays."
+        },
+        {
+          "title": "TV Feature Walls",
+          "text": "TV consoles, hidden storage, feature walls and cable management."
+        },
+        {
+          "title": "Commercial Works",
+          "text": "Office, retail, pantry, gallery, showroom and exhibition carpentry."
+        }
+      ]
     },
-    {
-      "title": "Wardrobe $220/ft",
-      "text": "Selected casement wardrobe promo"
+    "why": {
+      "title": "Cleaner, safer and more transparent carpentry.",
+      "lead": "Siong Design is positioned as a factory-direct carpenter with proper finishing, low formaldehyde material options and a customer-friendly quotation process.",
+      "cards": [
+        {
+          "title": "Direct factory pricing",
+          "text": "Clear promo pricing and per-foot estimates help customers understand budget before meeting."
+        },
+        {
+          "title": "E0 formaldehyde-free wood",
+          "text": "Suitable for families who care about indoor comfort and cleaner material choices."
+        },
+        {
+          "title": "Internal & external laminate",
+          "text": "Boards come with laminate finishing inside and outside, plus ABS trimming doors."
+        },
+        {
+          "title": "Tailored to your space",
+          "text": "Built according to site measurements, storage needs, preferred colours and layout."
+        }
+      ]
     },
-    {
-      "title": "Free Measurement",
-      "text": "Quotation before confirmation"
+    "works": {
+      "title": "Completed works and project references.",
+      "lead": "Use this page to showcase kitchen, wardrobe, TV console and commercial project photos.",
+      "cards": [
+        {
+          "title": "Kitchen works",
+          "text": "Modern kitchen cabinets and storage solutions."
+        },
+        {
+          "title": "Wardrobe works",
+          "text": "Casement and full-height wardrobe designs."
+        },
+        {
+          "title": "Feature walls",
+          "text": "TV feature walls, consoles and hidden storage."
+        }
+      ]
+    },
+    "calculator": {
+      "title": "Instant carpentry cost calculator.",
+      "lead": "Choose HDB or Condo pricing category, then estimate by foot run and item type."
+    },
+    "faq": {
+      "title": "Frequently asked questions.",
+      "lead": "Common material, quotation and installation questions customers usually ask."
+    },
+    "contact": {
+      "title": "Get a quote from Siong Design.",
+      "lead": "Send photos, floor plan, rough measurements and preferred design for a clearer estimate."
     }
-  ],
-  "mobileSectionOrder": [
-    "m-home",
-    "m-services",
-    "m-why",
-    "m-works",
-    "m-calc",
-    "m-faq",
-    "m-contact"
-  ]
+  }
 }

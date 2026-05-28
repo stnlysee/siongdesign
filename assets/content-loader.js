@@ -125,10 +125,86 @@
 
   function applyCalculator(data) {
     if (!data.calculator) return;
-    optionList(document.getElementById('itemType'), data.calculator.carpentryTypes);
-    optionList(document.getElementById('mItemType'), data.calculator.mobileTypes || data.calculator.carpentryTypes);
+    var calc = data.calculator;
+
+    function ensurePropertyCategory(categories) {
+      var itemType = document.getElementById('itemType');
+      if (!itemType || !Array.isArray(categories) || !categories.length) return null;
+      var existing = document.getElementById('propertyCategory');
+      if (existing) return existing;
+      var parentField = itemType.closest ? itemType.closest('.field') : itemType.parentNode;
+      if (!parentField || !parentField.parentNode) return null;
+      var wrap = document.createElement('div');
+      wrap.className = 'field full';
+      wrap.innerHTML = '<label for="propertyCategory">Property Type</label><select id="propertyCategory"></select>';
+      parentField.parentNode.insertBefore(wrap, parentField);
+      var select = document.getElementById('propertyCategory');
+      select.innerHTML = categories.map(function (cat, index) {
+        return '<option value="' + index + '">' + escapeHtml(cat.label || ('Category ' + (index + 1))) + '</option>';
+      }).join('');
+      return select;
+    }
+
+    if (Array.isArray(calc.categories) && calc.categories.length) {
+      var catSelect = ensurePropertyCategory(calc.categories);
+      var itemType = document.getElementById('itemType');
+      function fillCategory() {
+        var index = catSelect ? Number(catSelect.value || 0) : 0;
+        var cat = calc.categories[index] || calc.categories[0];
+        optionList(itemType, cat.items || []);
+        if (window.calcEstimate) window.calcEstimate();
+      }
+      if (catSelect) { catSelect.onchange = fillCategory; fillCategory(); }
+    } else {
+      optionList(document.getElementById('itemType'), calc.carpentryTypes);
+    }
+
+    optionList(document.getElementById('sinteredStone'), calc.sinteredStoneOptions);
+    optionList(document.getElementById('heightType'), calc.heightOptions);
+    optionList(document.getElementById('material'), calc.materialOptions);
+    optionList(document.getElementById('internal'), calc.internalOptions);
+    optionList(document.getElementById('doors'), calc.accessoryOptions);
+    optionList(document.getElementById('installation'), calc.installationOptions);
+    optionList(document.getElementById('mItemType'), calc.mobileTypes || calc.carpentryTypes);
+
     if (window.calcEstimate) window.calcEstimate();
     if (window.calcMobileEstimate) window.calcMobileEstimate();
+  }
+
+
+  function applyPages(data) {
+    if (!data.pages) return;
+    var current = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+    var map = {'services.html':'services','why-us.html':'why','works.html':'works','calculator.html':'calculator','faq.html':'faq','contact.html':'contact'};
+    var key = map[current];
+    var page = key && data.pages[key];
+    if (!page) return;
+    var head = document.querySelector('.section-head');
+    if (head) {
+      var h = head.querySelector('h1, h2');
+      var p = head.querySelector('p');
+      if (h && page.title) h.textContent = page.title;
+      if (p && page.lead) p.textContent = page.lead;
+    }
+    if (Array.isArray(page.cards)) {
+      var cards = document.querySelectorAll('.card');
+      page.cards.forEach(function(card, i){
+        if (!cards[i]) return;
+        var h = cards[i].querySelector('h3');
+        var p = cards[i].querySelector('p');
+        if (h && card.title) h.textContent = card.title;
+        if (p && card.text) p.textContent = card.text;
+      });
+    }
+  }
+
+  function applyFaq(data) {
+    if (!Array.isArray(data.faq) || !data.faq.length) return;
+    var wrap = document.querySelector('.faq-wrap');
+    if (!wrap) return;
+    wrap.innerHTML = data.faq.map(function(item, i){
+      return '<details class="faq" ' + (i === 0 ? 'open' : '') + '><summary>' + escapeHtml(item.question || 'FAQ') + '</summary><p>' + escapeHtml(item.answer || '') + '</p></details>';
+    }).join('');
   }
 
   function applySite(data) {
@@ -158,6 +234,8 @@
     applyProof(data);
     applyMobileSectionOrder(data);
     applyImages(data);
+    applyPages(data);
+    applyFaq(data);
     applyCalculator(data);
   }
 
@@ -167,7 +245,7 @@
     try { applySite(JSON.parse(localStorage.getItem('siongPreviewContent'))); return; } catch (e) {}
   }
 
-  fetch(CONTENT_URL, { cache: 'no-store' })
+  fetch(CONTENT_URL + '?v=' + Date.now())
     .then(function (res) { return res.ok ? res.json() : null; })
     .then(function (data) { if (data) applySite(data); })
     .catch(function () { /* keep original static content if JSON is unavailable */ });

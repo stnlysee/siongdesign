@@ -102,3 +102,65 @@ window.addEventListener('load', function() {
   });
   calcMobileEstimate();
 });
+
+
+// V37 calculator category loader: HDB / Condo support
+(function () {
+  function optionHtml(item) {
+    return '<option value="' + Number(item.value || 0) + '">' + String(item.label || 'Option').replace(/</g, '&lt;') + '</option>';
+  }
+
+  function fillSelect(select, items) {
+    if (!select || !Array.isArray(items)) return;
+    select.innerHTML = items.map(optionHtml).join('');
+  }
+
+  function applyCalculatorData(data) {
+    if (!data || !data.calculator) return;
+
+    var calc = data.calculator;
+    var categorySelect = document.getElementById('propertyCategory');
+    var itemType = document.getElementById('itemType');
+
+    if (categorySelect && itemType && Array.isArray(calc.categories) && calc.categories.length) {
+      categorySelect.innerHTML = calc.categories.map(function (cat, index) {
+        return '<option value="' + index + '">' + String(cat.label || ('Category ' + (index + 1))).replace(/</g, '&lt;') + '</option>';
+      }).join('');
+
+      function updateCarpentryItems() {
+        var selectedCategory = calc.categories[Number(categorySelect.value)] || calc.categories[0];
+        fillSelect(itemType, selectedCategory.items || []);
+        if (typeof calcEstimate === 'function') calcEstimate();
+      }
+
+      categorySelect.addEventListener('change', updateCarpentryItems);
+      updateCarpentryItems();
+    }
+
+    fillSelect(document.getElementById('sinteredStone'), calc.sinteredStoneOptions);
+    fillSelect(document.getElementById('heightType'), calc.heightOptions);
+    fillSelect(document.getElementById('material'), calc.materialOptions);
+    fillSelect(document.getElementById('internal'), calc.internalOptions);
+    fillSelect(document.getElementById('doors'), calc.accessoryOptions);
+    fillSelect(document.getElementById('installation'), calc.installationOptions);
+
+    if (typeof calcEstimate === 'function') calcEstimate();
+  }
+
+  function loadCalculatorData() {
+    if (!document.getElementById('calculator')) return;
+
+    fetch('content/site-content.json?v=' + Date.now())
+      .then(function (res) { return res.ok ? res.json() : null; })
+      .then(function (data) { if (data) applyCalculatorData(data); })
+      .catch(function () {
+        // Keep the static calculator if JSON cannot be loaded.
+      });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadCalculatorData);
+  } else {
+    loadCalculatorData();
+  }
+})();
