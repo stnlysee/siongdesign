@@ -1,17 +1,17 @@
 {
   "site": {
     "businessName": "Siong Design",
-    "tagline": "Premium Carpentry \u2022 Factory Price",
+    "tagline": "Premium Carpentry • Factory Price",
     "phone": "+65 8451 4057",
     "whatsappNumber": "6584514057",
-    "facebookUrl": "https://www.facebook.com/profile.php?id=61575290054499",
-    "address": "71 Woodlands Industrial Park E9 #05-08 A/B, S757048, Wave 9, Singapore",
-    "defaultMetaDescription": "Siong Design provides premium carpentry, kitchen cabinets, wardrobes, TV feature walls and custom carpentry in Singapore.",
     "whatsappButtonText": "WhatsApp Us",
     "whatsappDefaultMessage": "Hi Siong Design, I would like to request a quotation.",
     "showWhatsappFloat": true,
+    "facebookUrl": "https://www.facebook.com/profile.php?id=61575290054499",
     "facebookButtonText": "Facebook: Siong Design",
-    "showFacebookButton": true
+    "showFacebookButton": true,
+    "address": "71 Woodlands Industrial Park E9 #05-08 A/B, S757048, Wave 9, Singapore",
+    "defaultMetaDescription": "Siong Design provides premium carpentry, kitchen cabinets, wardrobes, TV feature walls and custom carpentry in Singapore."
   },
   "navigation": [
     {
@@ -52,7 +52,7 @@
     }
   ],
   "home": {
-    "heroTag": "HDB \u2022 Condo \u2022 Landed \u2022 Commercial",
+    "heroTag": "HDB • Condo • Landed • Commercial",
     "heroTitle": "Premium carpentry at direct factory value.",
     "heroLead": "Siong Design builds kitchen cabinets, wardrobes, TV feature walls and custom carpentry for Singapore homes and businesses, with clean workmanship, low formaldehyde options and transparent quotation support.",
     "primaryButtonText": "Calculate My Cost",
@@ -154,6 +154,16 @@
           {
             "label": "Condo TV Feature Wall from $300/ft run",
             "value": 300
+          }
+        ]
+      },
+      {
+        "label": "New Category",
+        "value": "new",
+        "items": [
+          {
+            "label": "New option from $100/ft run",
+            "value": 100
           }
         ]
       }
@@ -284,5 +294,29 @@
         "Soft-close options"
       ]
     }
+  ],
+  "pages": {},
+  "proof": [
+    {
+      "title": "From $110/ft",
+      "text": "Kitchen top/bottom promo, counted separately"
+    },
+    {
+      "title": "Wardrobe $220/ft",
+      "text": "Selected casement wardrobe promo"
+    },
+    {
+      "title": "Free Measurement",
+      "text": "Quotation before confirmation"
+    }
+  ],
+  "mobileSectionOrder": [
+    "m-home",
+    "m-services",
+    "m-why",
+    "m-works",
+    "m-calc",
+    "m-faq",
+    "m-contact"
   ]
 }
