@@ -1,0 +1,15 @@
+# Siong Design
+
+Siong Design is a Singapore carpentry company providing kitchen cabinets, wardrobes, TV feature walls, commercial carpentry and quotation support.
+
+Key pages:
+- Home: /index.html
+- Services: /services.html
+- Completed works: /works.html
+- Calculator: /calculator.html
+- FAQ: /faq.html
+- Contact: /contact.html
+
+Business details:
+- WhatsApp: +65 8451 4057
+- Address: 71 Woodlands Industrial Park E9 #05-08 A/B, S757048, Wave 9, Singapore

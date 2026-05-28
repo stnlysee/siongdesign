@@ -1,0 +1,250 @@
+{
+  "site": {
+    "businessName": "Siong Design",
+    "tagline": "Premium Carpentry • Factory Price",
+    "phone": "+65 8451 4057",
+    "whatsappNumber": "6584514057",
+    "facebookUrl": "https://www.facebook.com/profile.php?id=61575290054499",
+    "address": "71 Woodlands Industrial Park E9 #05-08 A/B, S757048, Wave 9, Singapore",
+    "defaultMetaDescription": "Siong Design provides premium carpentry, kitchen cabinets, wardrobes, TV feature walls and custom carpentry in Singapore.",
+    "whatsappButtonText": "WhatsApp Us",
+    "whatsappDefaultMessage": "Hi Siong Design, I would like to request a quotation.",
+    "showWhatsappFloat": true,
+    "facebookButtonText": "Facebook: Siong Design",
+    "showFacebookButton": true
+  },
+  "navigation": [
+    {
+      "label": "Home",
+      "url": "index.html",
+      "enabled": true
+    },
+    {
+      "label": "Services",
+      "url": "services.html",
+      "enabled": true
+    },
+    {
+      "label": "Why Us",
+      "url": "why-us.html",
+      "enabled": true
+    },
+    {
+      "label": "Works",
+      "url": "works.html",
+      "enabled": true
+    },
+    {
+      "label": "Calculator",
+      "url": "calculator.html",
+      "enabled": true
+    },
+    {
+      "label": "FAQ",
+      "url": "faq.html",
+      "enabled": true
+    },
+    {
+      "label": "Get Quote",
+      "url": "contact.html",
+      "enabled": true,
+      "button": true
+    }
+  ],
+  "home": {
+    "heroTag": "HDB • Condo • Landed • Commercial",
+    "heroTitle": "Premium carpentry at direct factory value.",
+    "heroLead": "Siong Design builds kitchen cabinets, wardrobes, TV feature walls and custom carpentry for Singapore homes and businesses, with clean workmanship, low formaldehyde options and transparent quotation support.",
+    "primaryButtonText": "Calculate My Cost",
+    "primaryButtonUrl": "calculator.html",
+    "secondaryButtonText": "WhatsApp 8451 4057",
+    "secondaryButtonUrl": "https://wa.me/6584514057",
+    "thirdButtonText": "View Works",
+    "thirdButtonUrl": "works.html"
+  },
+  "promo": {
+    "headline": "Kitchen & Wardrobe Promo",
+    "subheadline": "Direct Factory Value",
+    "fromPrice": "$110",
+    "unit": "/FT",
+    "note": "Kitchen top and bottom cabinets are calculated separately. Wardrobe promo starts from $220/ft. Terms and conditions apply.",
+    "chips": [
+      "E0 wood",
+      "Internal & external laminate",
+      "ABS trimming",
+      "Soft-close options"
+    ]
+  },
+  "calculator": {
+    "carpentryTypes": [
+      {
+        "label": "Kitchen Cabinet - Top Unit Promo from $110/ft run",
+        "value": 110
+      },
+      {
+        "label": "Kitchen Cabinet - Bottom Unit Promo from $110/ft run",
+        "value": 110
+      },
+      {
+        "label": "Casement Wardrobe Promo from $220/ft run",
+        "value": 220
+      },
+      {
+        "label": "Kitchen Cabinet - Top Unit Standard from $180/ft run",
+        "value": 180
+      },
+      {
+        "label": "Kitchen Cabinet - Bottom Unit Standard from $220/ft run",
+        "value": 220
+      },
+      {
+        "label": "TV Feature Wall from $280/ft run",
+        "value": 280
+      },
+      {
+        "label": "Commercial Display from $300/ft run",
+        "value": 300
+      }
+    ],
+    "mobileTypes": [
+      {
+        "label": "Kitchen Cabinet Promo from $110/ft",
+        "value": 110
+      },
+      {
+        "label": "Casement Wardrobe Promo from $220/ft",
+        "value": 220
+      },
+      {
+        "label": "TV Feature Wall from $280/ft",
+        "value": 280
+      },
+      {
+        "label": "Commercial Display from $300/ft",
+        "value": 300
+      }
+    ]
+  },
+  "faq": [
+    {
+      "question": "How do I get an accurate quotation?",
+      "answer": "Send your floor plan, area photos, rough measurements and preferred design. Siong Design can advise an estimated range before site measurement."
+    },
+    {
+      "question": "Is the calculator price final?",
+      "answer": "No. It is for budgeting only. Final price depends on measurement, material, accessories, layout complexity and installation condition."
+    },
+    {
+      "question": "How is kitchen cabinet pricing calculated?",
+      "answer": "Kitchen top cabinet and bottom cabinet are treated as separate items. For example, 10 ft top + 10 ft bottom means two separate 10 ft runs."
+    }
+  ],
+  "ai": {
+    "summary": "Siong Design is a Singapore carpentry company offering kitchen cabinets, wardrobes, TV feature walls, commercial carpentry, direct factory value, free measurement support and quotation assistance.",
+    "keywords": [
+      "Singapore carpentry",
+      "kitchen cabinet Singapore",
+      "wardrobe Singapore",
+      "TV feature wall",
+      "sintered stone countertop",
+      "custom cabinet"
+    ]
+  },
+  "images": [
+    {
+      "label": "Hero Kitchen",
+      "path": "assets/hero-kitchen-grey.png",
+      "alt": "Siong Design kitchen cabinet and sintered stone interior"
+    },
+    {
+      "label": "Hero Wardrobe",
+      "path": "assets/hero-wardrobe-promo.png",
+      "alt": "Siong Design wardrobe promotion"
+    },
+    {
+      "label": "Kitchen Dark Luxury",
+      "path": "assets/kitchen-dark-luxury.png",
+      "alt": "Dark luxury kitchen cabinet"
+    },
+    {
+      "label": "Kitchen Grey Storage",
+      "path": "assets/kitchen-grey-storage.png",
+      "alt": "Grey kitchen storage cabinet"
+    },
+    {
+      "label": "Kitchen Wood Complete",
+      "path": "assets/kitchen-wood-complete.png",
+      "alt": "Wood kitchen cabinet complete set"
+    },
+    {
+      "label": "Kitchen Wood White",
+      "path": "assets/kitchen-wood-white.png",
+      "alt": "Wood and white kitchen cabinet"
+    },
+    {
+      "label": "Commercial Interior",
+      "path": "assets/commercial-interior.png",
+      "alt": "Commercial interior renovation"
+    },
+    {
+      "label": "Shoe Cabinet",
+      "path": "assets/shoe-cabinet.png",
+      "alt": "Custom shoe cabinet"
+    },
+    {
+      "label": "Vanity Drawer",
+      "path": "assets/vanity-drawer.png",
+      "alt": "Bathroom vanity drawer cabinet"
+    },
+    {
+      "label": "Wardrobe Glass",
+      "path": "assets/wardrobe-glass.png",
+      "alt": "Glass wardrobe cabinet"
+    },
+    {
+      "label": "Wardrobe LED",
+      "path": "assets/wardrobe-led.png",
+      "alt": "Wardrobe with LED lighting"
+    },
+    {
+      "label": "Wardrobe Open Shelves",
+      "path": "assets/wardrobe-open-shelves.png",
+      "alt": "Open shelf wardrobe cabinet"
+    },
+    {
+      "label": "Promo Board 1",
+      "path": "assets/promo-board-1.png",
+      "alt": "Promotional board design 1"
+    },
+    {
+      "label": "Promo Board 2",
+      "path": "assets/promo-board-2.png",
+      "alt": "Promotional board design 2"
+    },
+    {
+      "label": "Promo Board 3",
+      "path": "assets/promo-board-3.png",
+      "alt": "Promotional board design 3"
+    },
+    {
+      "label": "Promo Board 4",
+      "path": "assets/promo-board-4.png",
+      "alt": "Promotional board design 4"
+    }
+  ],
+  "promoBoxes": [
+    {
+      "headline": "Kitchen & Wardrobe Promo",
+      "subheadline": "Direct Factory Value",
+      "fromPrice": "$110",
+      "unit": "/FT",
+      "note": "Kitchen top and bottom cabinets are calculated separately. Wardrobe promo starts from $220/ft. Terms and conditions apply.",
+      "chips": [
+        "E0 wood",
+        "Internal & external laminate",
+        "ABS trimming",
+        "Soft-close options"
+      ]
+    }
+  ]
+}
