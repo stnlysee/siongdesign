@@ -1,18 +1,18 @@
 {
   "site": {
     "businessName": "Siong Design",
-    "tagline": "Premium Carpentry \u2022 Factory Price",
-    "phone": "+65 8451 4057",
+    "tagline": "Premium Carpentry • Factory Price",
+    "adminPassword": "siongadmin",
     "whatsappNumber": "6584514057",
-    "facebookUrl": "https://www.facebook.com/profile.php?id=61575290054499",
-    "address": "71 Woodlands Industrial Park E9 #05-08 A/B, S757048, Wave 9, Singapore",
-    "defaultMetaDescription": "Siong Design provides premium carpentry, kitchen cabinets, wardrobes, TV feature walls and custom carpentry in Singapore.",
     "whatsappButtonText": "WhatsApp Us",
     "whatsappDefaultMessage": "Hi Siong Design, I would like to request a quotation.",
     "showWhatsappFloat": true,
+    "facebookUrl": "https://www.facebook.com/profile.php?id=61575290054499",
     "facebookButtonText": "Facebook: Siong Design",
     "showFacebookButton": true,
-    "adminPassword": "siongadmin"
+    "defaultMetaDescription": "Siong Design provides premium carpentry, kitchen cabinets, wardrobes, TV feature walls and custom carpentry in Singapore.",
+    "address": "71 Woodlands Industrial Park E9 #05-08 A/B, S757048, Wave 9, Singapore",
+    "phone": "+65 8451 4057"
   },
   "navigation": [
     {
@@ -53,7 +53,7 @@
     }
   ],
   "home": {
-    "heroTag": "HDB \u2022 Condo \u2022 Landed \u2022 Commercial",
+    "heroTag": "HDB • Condo • Landed",
     "heroTitle": "Premium carpentry at direct factory value.",
     "heroLead": "Siong Design builds kitchen cabinets, wardrobes, TV feature walls and custom carpentry for Singapore homes and businesses, with clean workmanship, low formaldehyde options and transparent quotation support.",
     "primaryButtonText": "Calculate My Cost",
@@ -77,66 +77,6 @@
     ]
   },
   "calculator": {
-    "carpentryTypes": [
-      {
-        "label": "HDB Kitchen Cabinet - Top Unit Promo from $110/ft run",
-        "value": 110
-      },
-      {
-        "label": "HDB Kitchen Cabinet - Bottom Unit Promo from $110/ft run",
-        "value": 110
-      },
-      {
-        "label": "HDB Casement Wardrobe Promo from $220/ft run",
-        "value": 220
-      },
-      {
-        "label": "HDB Kitchen Cabinet - Top Unit Standard from $180/ft run",
-        "value": 180
-      },
-      {
-        "label": "HDB Kitchen Cabinet - Bottom Unit Standard from $220/ft run",
-        "value": 220
-      },
-      {
-        "label": "HDB TV Feature Wall from $280/ft run",
-        "value": 280
-      },
-      {
-        "label": "HDB Commercial Display from $300/ft run",
-        "value": 300
-      }
-    ],
-    "mobileTypes": [
-      {
-        "label": "HDB Kitchen Cabinet - Top Unit Promo from $110/ft run",
-        "value": 110
-      },
-      {
-        "label": "HDB Kitchen Cabinet - Bottom Unit Promo from $110/ft run",
-        "value": 110
-      },
-      {
-        "label": "HDB Casement Wardrobe Promo from $220/ft run",
-        "value": 220
-      },
-      {
-        "label": "HDB Kitchen Cabinet - Top Unit Standard from $180/ft run",
-        "value": 180
-      },
-      {
-        "label": "HDB Kitchen Cabinet - Bottom Unit Standard from $220/ft run",
-        "value": 220
-      },
-      {
-        "label": "HDB TV Feature Wall from $280/ft run",
-        "value": 280
-      },
-      {
-        "label": "HDB Commercial Display from $300/ft run",
-        "value": 300
-      }
-    ],
     "categories": [
       {
         "label": "HDB",
@@ -207,13 +147,73 @@
         ]
       }
     ],
+    "carpentryTypes": [
+      {
+        "label": "HDB Kitchen Cabinet - Top Unit Promo from $110/ft run",
+        "value": 110
+      },
+      {
+        "label": "HDB Kitchen Cabinet - Bottom Unit Promo from $110/ft run",
+        "value": 110
+      },
+      {
+        "label": "HDB Casement Wardrobe Promo from $220/ft run",
+        "value": 220
+      },
+      {
+        "label": "HDB Kitchen Cabinet - Top Unit Standard from $180/ft run",
+        "value": 180
+      },
+      {
+        "label": "HDB Kitchen Cabinet - Bottom Unit Standard from $220/ft run",
+        "value": 220
+      },
+      {
+        "label": "HDB TV Feature Wall from $280/ft run",
+        "value": 280
+      },
+      {
+        "label": "HDB Commercial Display from $300/ft run",
+        "value": 300
+      }
+    ],
+    "mobileTypes": [
+      {
+        "label": "HDB Kitchen Cabinet - Top Unit Promo from $110/ft run",
+        "value": 110
+      },
+      {
+        "label": "HDB Kitchen Cabinet - Bottom Unit Promo from $110/ft run",
+        "value": 110
+      },
+      {
+        "label": "HDB Casement Wardrobe Promo from $220/ft run",
+        "value": 220
+      },
+      {
+        "label": "HDB Kitchen Cabinet - Top Unit Standard from $180/ft run",
+        "value": 180
+      },
+      {
+        "label": "HDB Kitchen Cabinet - Bottom Unit Standard from $220/ft run",
+        "value": 220
+      },
+      {
+        "label": "HDB TV Feature Wall from $280/ft run",
+        "value": 280
+      },
+      {
+        "label": "HDB Commercial Display from $300/ft run",
+        "value": 300
+      }
+    ],
     "sinteredStoneOptions": [
       {
         "label": "Not Required",
         "value": 0
       },
       {
-        "label": "Width \u2264 700mm +$100/ft run",
+        "label": "Width ≤ 700mm +$100/ft run",
         "value": 100
       },
       {
@@ -339,7 +339,7 @@
     },
     {
       "question": "Are BLUM parts included in the estimate?",
-      "answer": "BLUM parts are charged separately unless stated in the quotation. Pricing follows BLUM\u2019s Recommended Retail Price from connect.blum.com, plus GST, plus an additional 5% handling and coordination charge."
+      "answer": "BLUM parts are charged separately unless stated in the quotation. Pricing follows BLUM’s Recommended Retail Price from connect.blum.com, plus GST, plus an additional 5% handling and coordination charge."
     },
     {
       "question": "What board and finishing standard do you use?",
@@ -549,5 +549,28 @@
       "title": "Get a quote from Siong Design.",
       "lead": "Send photos, floor plan, rough measurements and preferred design for a clearer estimate."
     }
-  }
+  },
+  "proof": [
+    {
+      "title": "From $110/ft",
+      "text": "Kitchen top/bottom promo, counted separately"
+    },
+    {
+      "title": "Wardrobe $220/ft",
+      "text": "Selected casement wardrobe promo"
+    },
+    {
+      "title": "Free Measurement",
+      "text": "Quotation before confirmation"
+    }
+  ],
+  "mobileSectionOrder": [
+    "m-home",
+    "m-services",
+    "m-why",
+    "m-works",
+    "m-calc",
+    "m-faq",
+    "m-contact"
+  ]
 }
