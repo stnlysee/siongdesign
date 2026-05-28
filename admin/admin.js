@@ -441,21 +441,76 @@ async function testGithubConnection(){
   catch(err){showStatus('Connection failed: ' + err.message, 'error');}
 }
 async function saveToGithub(){
-  if(isPublishing){showStatus('Already publishing. Please wait a moment.', 'info'); return;}
-  isPublishing = true;
-  try{
-    showStatus('Publishing content and photos to GitHub...', 'info');
-    normalizeContent();
-    await putFile(CONTENT_PATH, JSON.stringify(content,null,2), 'Update website content from visual admin builder');
-    for(const img of pendingImages){
-      const path = content.images[img.index]?.path;
-      if(path) await putFile(path, dataUrlToBase64(img.dataUrl), `Update image ${path}`, true);
+   const settings = getGithubSettings();
+
+  if (!settings.owner || !settings.repo || !settings.branch || !settings.token) {
+    alert("Missing GitHub settings. Open Auto Save Setup first.");
+    return;
+  }
+
+  const owner = settings.owner.trim();
+  const repo = settings.repo.trim();
+  const branch = settings.branch.trim();
+  const token = settings.token.trim();
+
+  const filePath = "content/site-content.json";
+  const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${filePath}?ref=${branch}`;
+
+  try {
+    setStatus("Publishing to GitHub...");
+
+    // 1) Always fetch latest file SHA first
+    const latestRes = await fetch(apiUrl, {
+      method: "GET",
+      headers: {
+        "Accept": "application/vnd.github+json",
+        "Authorization": `Bearer ${token}`,
+        "X-GitHub-Api-Version": "2022-11-28"
+      }
+    });
+
+    if (!latestRes.ok) {
+      const errText = await latestRes.text();
+      throw new Error(`Could not fetch latest file SHA: ${latestRes.status} ${errText}`);
     }
-    pendingImages = [];
-    $('saveState').textContent = 'Published to GitHub';
-    showStatus('Published successfully. Vercel may take a short while to redeploy.', 'success');
-  }catch(err){showStatus('Publish failed: ' + err.message, 'error');}
-  finally{isPublishing = false;}
+
+    const latestFile = await latestRes.json();
+    const latestSha = latestFile.sha;
+
+    // 2) Prepare latest content
+    const jsonText = JSON.stringify(siteContent, null, 2);
+    const encodedContent = btoa(unescape(encodeURIComponent(jsonText)));
+
+    // 3) Publish using latest SHA
+    const updateRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${filePath}`, {
+      method: "PUT",
+      headers: {
+        "Accept": "application/vnd.github+json",
+        "Authorization": `Bearer ${token}`,
+        "X-GitHub-Api-Version": "2022-11-28",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        message: "Update website content from admin portal",
+        content: encodedContent,
+        sha: latestSha,
+        branch: branch
+      })
+    });
+
+    if (!updateRes.ok) {
+      const errText = await updateRes.text();
+      throw new Error(`Publish failed: ${updateRes.status} ${errText}`);
+    }
+
+    setStatus("Published successfully. Vercel will redeploy shortly.");
+    alert("Published successfully. Wait 1-3 minutes, then refresh the website.");
+
+  } catch (error) {
+    console.error(error);
+    alert(`Publish failed: ${error.message}`);
+    setStatus("Publish failed.");
+  }
 }
 
 async function reloadLatestContentFromGithub(){
