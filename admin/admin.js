@@ -1,3 +1,4 @@
+/* GitHub Pages direct-publish version. Do not use api/publish.js with this file. */
 const ADMIN_PASSWORD = 'siongadmin';
 const CONTENT_PATH = 'content/site-content.json';
 
@@ -302,10 +303,10 @@ function helpText(block){
     promo:'Edit the promotional price box and chips.',
     proof:'Drag proof cards to reorder or edit the short trust points.',
     calculator:'Edit calculator dropdown labels and prices.',
-    images:'Drag and drop new photos onto image cards or preview image tiles.',
+    images:'Drag and drop new photos onto image cards for preview. Actual photo replacement should be done manually in GitHub assets folder.',
     mobile:'Drag mobile website sections to change their order.',
     seo:'Make the website easier for Google and AI tools to understand.',
-    github:'Publishing now uses the Vercel API. No GitHub token is stored in the browser.',
+    github:'Set up GitHub token so the portal can publish directly to GitHub Pages.',
     json:'Advanced editor. Only edit this if you understand JSON.'
   }[block] || '';
 }
@@ -681,41 +682,55 @@ function renderSeoEditor(){
 }
 
 function renderGithubEditor(){
-  const s = getAdminSettings();
+  const s = getGithubSettings();
 
   $('editorFields').innerHTML = `
     <div class="hint">
-      <b>Vercel API Publish Mode</b><br>
-      This version no longer stores your GitHub token in the browser. Your token must be saved inside Vercel Environment Variables instead.
+      <b>GitHub Pages Direct Publish Mode</b><br>
+      Fill this in once. The token is stored only in this browser local storage.
       <br><br>
-      Required Vercel variables:
-      <br>GITHUB_TOKEN
-      <br>GITHUB_OWNER = stnlysee
-      <br>GITHUB_REPO = siongdesign
-      <br>GITHUB_BRANCH = main
+      Token must have:
+      <br>Repository: stnlysee/siongdesign
+      <br>Contents: Read and write
+      <br>Metadata: Read-only
     </div>
+
+    <div class="field"><label>GitHub owner / username</label><input id="ghOwner" value="${esc(s.owner || 'stnlysee')}" placeholder="stnlysee"></div>
+    <div class="field"><label>Repository name</label><input id="ghRepo" value="${esc(s.repo || 'siongdesign')}" placeholder="siongdesign"></div>
+    <div class="field"><label>Branch</label><input id="ghBranch" value="${esc(s.branch || 'main')}" placeholder="main"></div>
+    <div class="field"><label>GitHub token</label><input id="ghToken" type="password" value="${esc(s.token || '')}" placeholder="github_pat_..."></div>
+
     <div class="repeat-card">
-      <label><input id="autoSaveToggle" type="checkbox" ${s.autoSave?'checked':''}> Auto publish about 3.5 seconds after every edit</label>
+      <label><input id="autoSaveToggle" type="checkbox" ${s.autoSave ? 'checked' : ''}> Auto publish about 3.5 seconds after every edit</label>
       <small>This creates many GitHub commits. Recommended only after testing.</small>
     </div>
+
     <div class="row-actions">
       <button id="saveSettings" class="primary" type="button">Save Settings</button>
-      <button id="testSettings" type="button">Test Vercel API</button>
+      <button id="testSettings" type="button">Test Connection</button>
       <button id="reloadLatest" type="button">Reload Latest Content</button>
+      <button id="clearSettings" class="danger" type="button">Clear Token</button>
     </div>`;
 
   $('saveSettings').onclick=()=>{
-    saveAdminSettingsFromForm();
-    showStatus('Admin settings saved in this browser.', 'success');
+    saveSettingsFromForm();
+    showStatus('GitHub settings saved in this browser.', 'success');
   };
 
   $('testSettings').onclick=async()=>{
-    saveAdminSettingsFromForm();
+    saveSettingsFromForm();
     await testGithubConnection();
   };
 
   $('reloadLatest').onclick=async()=>{
-    await reloadLatestContent();
+    saveSettingsFromForm();
+    await reloadLatestContentFromGithub();
+  };
+
+  $('clearSettings').onclick=()=>{
+    localStorage.removeItem('siongGithubSettings');
+    showStatus('Saved token cleared.', 'success');
+    renderGithubEditor();
   };
 }
 
@@ -772,38 +787,90 @@ function fileToDataUrl(file){
   });
 }
 
-function getAdminSettings(){
+function getGithubSettings(){
   try{
-    return JSON.parse(localStorage.getItem('siongAdminSettings')) || {autoSave:false};
+    return JSON.parse(localStorage.getItem('siongGithubSettings')) || {
+      owner:'stnlysee',
+      repo:'siongdesign',
+      branch:'main',
+      token:'',
+      autoSave:false
+    };
   }catch{
-    return {autoSave:false};
+    return {
+      owner:'stnlysee',
+      repo:'siongdesign',
+      branch:'main',
+      token:'',
+      autoSave:false
+    };
   }
 }
 
-function saveAdminSettingsFromForm(){
+function saveSettingsFromForm(){
   const settings = {
-    autoSave: $('autoSaveToggle') ? $('autoSaveToggle').checked : false
+    owner:$('ghOwner').value.trim(),
+    repo:$('ghRepo').value.trim(),
+    branch:$('ghBranch').value.trim() || 'main',
+    token:$('ghToken').value.trim(),
+    autoSave:$('autoSaveToggle').checked
   };
 
-  localStorage.setItem('siongAdminSettings', JSON.stringify(settings));
+  localStorage.setItem('siongGithubSettings', JSON.stringify(settings));
+}
+
+async function githubApi(url, options = {}){
+  const s = getGithubSettings();
+
+  if(!s.owner || !s.repo || !s.branch || !s.token){
+    throw new Error('Missing GitHub settings. Open Auto Save Setup first.');
+  }
+
+  let res;
+
+  try{
+    res = await fetch(url, {
+      ...options,
+      cache:'no-store',
+      headers:{
+        'Accept':'application/vnd.github+json',
+        'Authorization':`Bearer ${s.token.trim()}`,
+        'X-GitHub-Api-Version':'2022-11-28',
+        ...(options.body ? {'Content-Type':'application/json'} : {}),
+        ...(options.headers || {})
+      }
+    });
+  }catch(err){
+    throw new Error('Failed to fetch. Browser/network blocked GitHub API. Try Chrome/Edge, disable VPN/adblock, and open GitHub Pages using https.');
+  }
+
+  const text = await res.text();
+  let body = {};
+
+  try{
+    body = text ? JSON.parse(text) : {};
+  }catch{
+    body = {message:text};
+  }
+
+  if(!res.ok){
+    throw new Error(body.message || `GitHub error ${res.status}`);
+  }
+
+  return body;
+}
+
+function githubContentUrl(path, ref = true){
+  const s = getGithubSettings();
+  const cleanPath = path.replace(/^\/+/, '');
+  const base = `https://api.github.com/repos/${encodeURIComponent(s.owner.trim())}/${encodeURIComponent(s.repo.trim())}/contents/${cleanPath}`;
+  return ref ? `${base}?ref=${encodeURIComponent(s.branch.trim())}&t=${Date.now()}` : base;
 }
 
 async function testGithubConnection(){
   try{
-    showStatus('Testing Vercel publish API...', 'info');
-
-    const res = await fetch('/api/publish', {
-      method:'GET',
-      cache:'no-store'
-    });
-
-    const result = await safeJson(res);
-
-    if(!res.ok){
-      throw new Error(result.error || result.message || 'API test failed');
-    }
-
-    showStatus('Connection successful. Vercel API is ready to publish.', 'success');
+    await githubApi(githubContentUrl(CONTENT_PATH, true), {method:'GET'});
+    showStatus('Connection successful. Publishing is ready.', 'success');
   }catch(err){
     showStatus('Connection failed: ' + err.message, 'error');
   }
@@ -818,31 +885,33 @@ async function saveToGithub(){
   isPublishing = true;
 
   try{
-    showStatus('Publishing through Vercel API...', 'info');
+    showStatus('Publishing content to GitHub...', 'info');
 
     normalizeContent();
 
-    const res = await fetch('/api/publish', {
-      method:'POST',
-      cache:'no-store',
-      headers:{
-        'Content-Type':'application/json'
-      },
-      body:JSON.stringify({
-        content:content
-      })
-    });
+    await putFile(
+      CONTENT_PATH,
+      JSON.stringify(content, null, 2),
+      'Update website content from visual admin builder'
+    );
 
-    const result = await safeJson(res);
+    /*
+      Image upload is disabled in this GitHub Pages version to reduce Failed to fetch errors.
+      This still saves:
+      - Text
+      - Promo boxes
+      - WhatsApp settings
+      - Facebook settings
+      - Navigation
+      - Calculator dropdowns
+      - SEO
 
-    if(!res.ok){
-      throw new Error((result.error || 'Publish failed') + (result.details ? ': ' + result.details : ''));
-    }
-
+      To update actual photos, replace image files manually in GitHub assets folder.
+    */
     pendingImages = [];
 
     $('saveState').textContent = 'Published to GitHub';
-    showStatus('Published successfully. Vercel may take 1-3 minutes to redeploy.', 'success');
+    showStatus('Published successfully. GitHub Pages may take 1-3 minutes to update.', 'success');
 
   }catch(err){
     console.error(err);
@@ -852,29 +921,15 @@ async function saveToGithub(){
   }
 }
 
-async function safeJson(res){
-  const text = await res.text();
+async function reloadLatestContentFromGithub(){
   try{
-    return text ? JSON.parse(text) : {};
-  }catch{
-    return {message:text};
-  }
-}
+    showStatus('Reloading latest content from GitHub...', 'info');
 
-async function reloadLatestContent(){
-  try{
-    showStatus('Reloading latest content from website file...', 'info');
+    const latest = await githubApi(githubContentUrl(CONTENT_PATH, true), {method:'GET'});
+    const jsonText = decodeBase64Utf8(latest.content.replace(/
+/g, ''));
 
-    const res = await fetch('../' + CONTENT_PATH + '?v=' + Date.now(), {
-      method:'GET',
-      cache:'no-store'
-    });
-
-    if(!res.ok){
-      throw new Error('Unable to load content/site-content.json');
-    }
-
-    content = await res.json();
+    content = JSON.parse(jsonText);
     normalizeContent();
     pendingImages = [];
 
@@ -882,11 +937,68 @@ async function reloadLatestContent(){
     renderEditor();
     renderPreview();
 
-    showStatus('Latest content loaded. You can edit and publish again.', 'success');
+    showStatus('Latest content loaded from GitHub. You can edit and publish again.', 'success');
 
   }catch(err){
     showStatus('Reload failed: ' + err.message, 'error');
   }
+}
+
+async function putFile(path, data, message){
+  const s = getGithubSettings();
+
+  if(!s.owner || !s.repo || !s.branch || !s.token){
+    throw new Error('Missing GitHub settings. Open Auto Save Setup first.');
+  }
+
+  const cleanPath = path.replace(/^\/+/, '');
+  const encodedContent = encodeBase64Utf8(data);
+  let lastError = null;
+
+  for(let attempt = 1; attempt <= 5; attempt++){
+    try{
+      let sha = null;
+
+      try{
+        const existing = await githubApi(githubContentUrl(cleanPath, true), {method:'GET'});
+        sha = existing.sha;
+      }catch(err){
+        if(!String(err.message).includes('Not Found')){
+          throw err;
+        }
+      }
+
+      return await githubApi(githubContentUrl(cleanPath, false), {
+        method:'PUT',
+        body:JSON.stringify({
+          message,
+          content:encodedContent,
+          branch:s.branch.trim(),
+          ...(sha ? {sha} : {})
+        })
+      });
+
+    }catch(err){
+      lastError = err;
+      const msg = String(err.message || '');
+
+      if(!msg.includes('does not match') && !msg.includes('sha') && !msg.includes('409')){
+        break;
+      }
+
+      await new Promise(resolve => setTimeout(resolve, 900 * attempt));
+    }
+  }
+
+  throw lastError || new Error('GitHub publish failed after retrying.');
+}
+
+function encodeBase64Utf8(str){
+  return btoa(unescape(encodeURIComponent(str)));
+}
+
+function decodeBase64Utf8(base64){
+  return decodeURIComponent(escape(atob(base64)));
 }
 
 function backupJson(){
