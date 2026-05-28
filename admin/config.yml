@@ -1,0 +1,64 @@
+backend:
+  name: github
+  repo: YOUR_GITHUB_USERNAME/YOUR_REPOSITORY_NAME
+  branch: main
+media_folder: "assets"
+public_folder: "assets"
+publish_mode: editorial_workflow
+collections:
+  - name: "settings"
+    label: "Website Settings"
+    files:
+      - label: "Site Content"
+        name: "site_content"
+        file: "content/site-content.json"
+        format: "json"
+        fields:
+          - {label: "Site", name: "site", widget: "object", fields: [
+              {label: "Business Name", name: "businessName", widget: "string"},
+              {label: "Tagline", name: "tagline", widget: "string"},
+              {label: "Phone", name: "phone", widget: "string"},
+              {label: "WhatsApp Number", name: "whatsappNumber", widget: "string"},
+              {label: "Facebook URL", name: "facebookUrl", widget: "string"},
+              {label: "Address", name: "address", widget: "text"},
+              {label: "Default Meta Description", name: "defaultMetaDescription", widget: "text"}
+            ]}
+          - {label: "Navigation", name: "navigation", widget: "list", fields: [
+              {label: "Label", name: "label", widget: "string"},
+              {label: "URL", name: "url", widget: "string"},
+              {label: "Enabled", name: "enabled", widget: "boolean", default: true},
+              {label: "Button Style", name: "button", widget: "boolean", required: false}
+            ]}
+          - {label: "Homepage", name: "home", widget: "object", fields: [
+              {label: "Hero Tag", name: "heroTag", widget: "string"},
+              {label: "Hero Title", name: "heroTitle", widget: "string"},
+              {label: "Hero Lead", name: "heroLead", widget: "text"},
+              {label: "Primary Button Text", name: "primaryButtonText", widget: "string"},
+              {label: "Primary Button URL", name: "primaryButtonUrl", widget: "string"},
+              {label: "Secondary Button Text", name: "secondaryButtonText", widget: "string"},
+              {label: "Secondary Button URL", name: "secondaryButtonUrl", widget: "string"},
+              {label: "Third Button Text", name: "thirdButtonText", widget: "string"},
+              {label: "Third Button URL", name: "thirdButtonUrl", widget: "string"}
+            ]}
+          - {label: "Promo", name: "promo", widget: "object", fields: [
+              {label: "Headline", name: "headline", widget: "string"},
+              {label: "Subheadline", name: "subheadline", widget: "string"},
+              {label: "From Price", name: "fromPrice", widget: "string"},
+              {label: "Unit", name: "unit", widget: "string"},
+              {label: "Note", name: "note", widget: "text"},
+              {label: "Chips", name: "chips", widget: "list"}
+            ]}
+          - {label: "Calculator", name: "calculator", widget: "object", fields: [
+              {label: "Carpentry Types", name: "carpentryTypes", widget: "list", fields: [
+                {label: "Label", name: "label", widget: "string"},
+                {label: "Value", name: "value", widget: "number"}
+              ]},
+              {label: "Mobile Types", name: "mobileTypes", widget: "list", fields: [
+                {label: "Label", name: "label", widget: "string"},
+                {label: "Value", name: "value", widget: "number"}
+              ]}
+            ]}
+          - {label: "AI", name: "ai", widget: "object", fields: [
+              {label: "Summary", name: "summary", widget: "text"},
+              {label: "Keywords", name: "keywords", widget: "list"}
+            ]}
