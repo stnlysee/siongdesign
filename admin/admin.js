@@ -17,13 +17,63 @@ const clone = (x) => JSON.parse(JSON.stringify(x));
 
 function defaultContent(){
   return {
-    site:{businessName:'Siong Design',tagline:'Premium Carpentry • Factory Price',phone:'+65 8451 4057',whatsappNumber:'6584514057',whatsappButtonText:'WhatsApp Us',whatsappDefaultMessage:'Hi Siong Design, I would like to request a quotation.',showWhatsappFloat:true,facebookUrl:'https://www.facebook.com/profile.php?id=61575290054499',facebookButtonText:'Facebook: Siong Design',showFacebookButton:true,address:'',defaultMetaDescription:''},
-    navigation:[{label:'Home',url:'index.html',enabled:true},{label:'Services',url:'services.html',enabled:true},{label:'Get Quote',url:'contact.html',enabled:true,button:true}],
-    home:{heroTag:'HDB • Condo • Landed • Commercial',heroTitle:'Premium carpentry at direct factory value.',heroLead:'Siong Design builds kitchen cabinets, wardrobes, TV feature walls and custom carpentry for Singapore homes and businesses.',primaryButtonText:'Calculate My Cost',primaryButtonUrl:'calculator.html',secondaryButtonText:'WhatsApp 8451 4057',secondaryButtonUrl:'https://wa.me/6584514057',thirdButtonText:'View Works',thirdButtonUrl:'works.html'},
-    promo:{headline:'Kitchen & Wardrobe Promo',subheadline:'Direct Factory Value',fromPrice:'$110',unit:'/FT',note:'Kitchen top and bottom cabinets are calculated separately. Wardrobe promo starts from $220/ft. Terms and conditions apply.',chips:['E0 wood','Internal & external laminate','ABS trimming','Soft-close options']},
-    promoBoxes:[{headline:'Kitchen & Wardrobe Promo',subheadline:'Direct Factory Value',fromPrice:'$110',unit:'/FT',note:'Kitchen top and bottom cabinets are calculated separately. Wardrobe promo starts from $220/ft. Terms and conditions apply.',chips:['E0 wood','Internal & external laminate','ABS trimming','Soft-close options']}],
-    proof:[{title:'From $110/ft',text:'Kitchen top/bottom promo, counted separately'},{title:'Wardrobe $220/ft',text:'Selected casement wardrobe promo'},{title:'Free Measurement',text:'Quotation before confirmation'}],
-    calculator:{carpentryTypes:[{label:'Kitchen Cabinet Promo from $110/ft run',value:110}],mobileTypes:[{label:'Kitchen Cabinet Promo from $110/ft',value:110}]},
+    site:{
+      businessName:'Siong Design',
+      tagline:'Premium Carpentry • Factory Price',
+      phone:'+65 8451 4057',
+      whatsappNumber:'6584514057',
+      whatsappButtonText:'WhatsApp Us',
+      whatsappDefaultMessage:'Hi Siong Design, I would like to request a quotation.',
+      showWhatsappFloat:true,
+      facebookUrl:'https://www.facebook.com/profile.php?id=61575290054499',
+      facebookButtonText:'Facebook: Siong Design',
+      showFacebookButton:true,
+      address:'',
+      defaultMetaDescription:''
+    },
+    navigation:[
+      {label:'Home',url:'index.html',enabled:true},
+      {label:'Services',url:'services.html',enabled:true},
+      {label:'Get Quote',url:'contact.html',enabled:true,button:true}
+    ],
+    home:{
+      heroTag:'HDB • Condo • Landed • Commercial',
+      heroTitle:'Premium carpentry at direct factory value.',
+      heroLead:'Siong Design builds kitchen cabinets, wardrobes, TV feature walls and custom carpentry for Singapore homes and businesses.',
+      primaryButtonText:'Calculate My Cost',
+      primaryButtonUrl:'calculator.html',
+      secondaryButtonText:'WhatsApp 8451 4057',
+      secondaryButtonUrl:'https://wa.me/6584514057',
+      thirdButtonText:'View Works',
+      thirdButtonUrl:'works.html'
+    },
+    promo:{
+      headline:'Kitchen & Wardrobe Promo',
+      subheadline:'Direct Factory Value',
+      fromPrice:'$110',
+      unit:'/FT',
+      note:'Kitchen top and bottom cabinets are calculated separately. Wardrobe promo starts from $220/ft. Terms and conditions apply.',
+      chips:['E0 wood','Internal & external laminate','ABS trimming','Soft-close options']
+    },
+    promoBoxes:[
+      {
+        headline:'Kitchen & Wardrobe Promo',
+        subheadline:'Direct Factory Value',
+        fromPrice:'$110',
+        unit:'/FT',
+        note:'Kitchen top and bottom cabinets are calculated separately. Wardrobe promo starts from $220/ft. Terms and conditions apply.',
+        chips:['E0 wood','Internal & external laminate','ABS trimming','Soft-close options']
+      }
+    ],
+    proof:[
+      {title:'From $110/ft',text:'Kitchen top/bottom promo, counted separately'},
+      {title:'Wardrobe $220/ft',text:'Selected casement wardrobe promo'},
+      {title:'Free Measurement',text:'Quotation before confirmation'}
+    ],
+    calculator:{
+      carpentryTypes:[{label:'Kitchen Cabinet Promo from $110/ft run',value:110}],
+      mobileTypes:[{label:'Kitchen Cabinet Promo from $110/ft',value:110}]
+    },
     faq:[],
     ai:{summary:'Siong Design is a Singapore carpentry company.',keywords:['Singapore carpentry']},
     images: defaultImages(),
@@ -65,6 +115,7 @@ async function loadContent(){
 
 function normalizeContent(){
   const base = defaultContent();
+
   content.site = {...base.site, ...(content.site || {})};
   content.home = {...base.home, ...(content.home || {})};
   content.promo = {...base.promo, ...(content.promo || {})};
@@ -112,7 +163,7 @@ function markChanged(){
   $('saveState').textContent = 'Unsaved changes';
   renderPreview();
 
-  if(getGithubSettings().autoSave === true){
+  if(getAdminSettings().autoSave === true){
     clearTimeout(autoSaveTimer);
     autoSaveTimer = setTimeout(saveToGithub, 3500);
   }
@@ -120,13 +171,14 @@ function markChanged(){
 
 function showStatus(message, type='info'){
   const box = $('status');
+  if(!box) return;
   box.textContent = message;
   box.className = 'status ' + type;
   box.classList.remove('hidden');
 }
 
 function hideStatus(){
-  $('status').classList.add('hidden');
+  if($('status')) $('status').classList.add('hidden');
 }
 
 function switchBlock(block){
@@ -253,7 +305,7 @@ function helpText(block){
     images:'Drag and drop new photos onto image cards or preview image tiles.',
     mobile:'Drag mobile website sections to change their order.',
     seo:'Make the website easier for Google and AI tools to understand.',
-    github:'Set up GitHub token once so the portal can publish changes automatically.',
+    github:'Publishing now uses the Vercel API. No GitHub token is stored in the browser.',
     json:'Advanced editor. Only edit this if you understand JSON.'
   }[block] || '';
 }
@@ -520,7 +572,7 @@ function bindPriceList(type,list,rerender){
 
 function renderImagesEditor(){
   $('editorFields').innerHTML =
-    `<div class="hint">Drop a photo onto any image card. This version saves image names/paths only. To replace actual photos, upload the image manually in GitHub assets folder.</div>` +
+    `<div class="hint">Drop a photo onto any image card for preview. Actual image file upload is disabled in this simple version. To replace actual photos, upload the photo manually in GitHub assets folder.</div>` +
     (content.images||[]).map((img,i)=>`<div class="image-card">
       <div class="thumb-drop" data-image-index="${i}" style="background-image:url('../${esc(img.path)}?v=${Date.now()}')">Drop photo here</div>
       <div class="field"><label>Image name</label><input data-img-field="label" data-index="${i}" value="${esc(img.label)}"></div>
@@ -580,7 +632,7 @@ function bindDropTarget(zone){
 
     zone.style.backgroundImage = `url('${dataUrl}')`;
 
-    showStatus('Photo preview updated. Actual image upload is disabled for now to avoid Failed to fetch. Upload the photo manually in GitHub assets folder.', 'info');
+    showStatus('Photo preview updated. Actual image upload is disabled for now. Upload the photo manually in GitHub assets folder.', 'info');
     markChanged();
   });
 }
@@ -629,41 +681,41 @@ function renderSeoEditor(){
 }
 
 function renderGithubEditor(){
-  const s = getGithubSettings();
+  const s = getAdminSettings();
 
   $('editorFields').innerHTML = `
-    <div class="hint"><b>Important:</b> The token is stored only in this browser. Use a fine-grained GitHub token with Repository Contents: Read and Write.</div>
-    <div class="field"><label>GitHub owner / username</label><input id="ghOwner" value="${esc(s.owner)}" placeholder="stnlysee"></div>
-    <div class="field"><label>Repository name</label><input id="ghRepo" value="${esc(s.repo)}" placeholder="siongdesign"></div>
-    <div class="field"><label>Branch</label><input id="ghBranch" value="${esc(s.branch || 'main')}"></div>
-    <div class="field"><label>GitHub token</label><input id="ghToken" type="password" value="${esc(s.token)}" placeholder="github_pat_..."></div>
-    <div class="repeat-card"><label><input id="autoSaveToggle" type="checkbox" ${s.autoSave?'checked':''}> Auto publish about 3.5 seconds after every edit</label><small>This creates many GitHub commits. Recommended only after testing.</small></div>
+    <div class="hint">
+      <b>Vercel API Publish Mode</b><br>
+      This version no longer stores your GitHub token in the browser. Your token must be saved inside Vercel Environment Variables instead.
+      <br><br>
+      Required Vercel variables:
+      <br>GITHUB_TOKEN
+      <br>GITHUB_OWNER = stnlysee
+      <br>GITHUB_REPO = siongdesign
+      <br>GITHUB_BRANCH = main
+    </div>
+    <div class="repeat-card">
+      <label><input id="autoSaveToggle" type="checkbox" ${s.autoSave?'checked':''}> Auto publish about 3.5 seconds after every edit</label>
+      <small>This creates many GitHub commits. Recommended only after testing.</small>
+    </div>
     <div class="row-actions">
       <button id="saveSettings" class="primary" type="button">Save Settings</button>
-      <button id="testSettings" type="button">Test Connection</button>
+      <button id="testSettings" type="button">Test Vercel API</button>
       <button id="reloadLatest" type="button">Reload Latest Content</button>
-      <button id="clearSettings" class="danger" type="button">Clear Token</button>
     </div>`;
 
   $('saveSettings').onclick=()=>{
-    saveSettingsFromForm();
-    showStatus('GitHub settings saved in this browser.', 'success');
+    saveAdminSettingsFromForm();
+    showStatus('Admin settings saved in this browser.', 'success');
   };
 
   $('testSettings').onclick=async()=>{
-    saveSettingsFromForm();
+    saveAdminSettingsFromForm();
     await testGithubConnection();
   };
 
   $('reloadLatest').onclick=async()=>{
-    saveSettingsFromForm();
-    await reloadLatestContentFromGithub();
-  };
-
-  $('clearSettings').onclick=()=>{
-    localStorage.removeItem('siongGithubSettings');
-    showStatus('Saved token cleared.', 'success');
-    renderGithubEditor();
+    await reloadLatestContent();
   };
 }
 
@@ -720,78 +772,38 @@ function fileToDataUrl(file){
   });
 }
 
-function dataUrlToBase64(dataUrl){
-  return dataUrl.split(',')[1];
-}
-
-function getGithubSettings(){
+function getAdminSettings(){
   try{
-    return JSON.parse(localStorage.getItem('siongGithubSettings')) || {owner:'',repo:'',branch:'main',token:'',autoSave:false};
+    return JSON.parse(localStorage.getItem('siongAdminSettings')) || {autoSave:false};
   }catch{
-    return {owner:'',repo:'',branch:'main',token:'',autoSave:false};
+    return {autoSave:false};
   }
 }
 
-function saveSettingsFromForm(){
+function saveAdminSettingsFromForm(){
   const settings = {
-    owner:$('ghOwner').value.trim(),
-    repo:$('ghRepo').value.trim(),
-    branch:$('ghBranch').value.trim() || 'main',
-    token:$('ghToken').value.trim(),
-    autoSave:$('autoSaveToggle').checked
+    autoSave: $('autoSaveToggle') ? $('autoSaveToggle').checked : false
   };
 
-  localStorage.setItem('siongGithubSettings', JSON.stringify(settings));
-}
-
-async function githubFetch(path, options={}){
-  const s = getGithubSettings();
-
-  if(!s.owner || !s.repo || !s.branch || !s.token){
-    throw new Error('Missing GitHub settings. Open Auto Save Setup first.');
-  }
-
-  const cleanPath = path.replace(/^\/+/, '');
-  const url = `https://api.github.com/repos/${encodeURIComponent(s.owner.trim())}/${encodeURIComponent(s.repo.trim())}/contents/${cleanPath}`;
-
-  let res;
-
-  try{
-    res = await fetch(url, {
-      ...options,
-      cache: 'no-store',
-      headers:{
-        'Accept':'application/vnd.github+json',
-        'Authorization':`Bearer ${s.token.trim()}`,
-        'X-GitHub-Api-Version':'2022-11-28',
-        ...(options.body ? {'Content-Type':'application/json'} : {}),
-        ...(options.headers||{})
-      }
-    });
-  }catch(err){
-    throw new Error('Failed to reach GitHub API. Try HTTPS admin page, disable VPN/adblock, then try again.');
-  }
-
-  const text = await res.text();
-  let body = {};
-
-  try{
-    body = text ? JSON.parse(text) : {};
-  }catch{
-    body = {message:text};
-  }
-
-  if(!res.ok){
-    throw new Error(body.message || `GitHub error ${res.status}`);
-  }
-
-  return body;
+  localStorage.setItem('siongAdminSettings', JSON.stringify(settings));
 }
 
 async function testGithubConnection(){
   try{
-    await githubFetch(`${CONTENT_PATH}?ref=${encodeURIComponent(getGithubSettings().branch)}`, {method:'GET'});
-    showStatus('Connection successful. Publishing is ready.', 'success');
+    showStatus('Testing Vercel publish API...', 'info');
+
+    const res = await fetch('/api/publish', {
+      method:'GET',
+      cache:'no-store'
+    });
+
+    const result = await safeJson(res);
+
+    if(!res.ok){
+      throw new Error(result.error || result.message || 'API test failed');
+    }
+
+    showStatus('Connection successful. Vercel API is ready to publish.', 'success');
   }catch(err){
     showStatus('Connection failed: ' + err.message, 'error');
   }
@@ -806,32 +818,31 @@ async function saveToGithub(){
   isPublishing = true;
 
   try{
-    showStatus('Publishing content to GitHub...', 'info');
+    showStatus('Publishing through Vercel API...', 'info');
+
     normalizeContent();
 
-    await putFile(
-      CONTENT_PATH,
-      JSON.stringify(content,null,2),
-      'Update website content from visual admin builder'
-    );
+    const res = await fetch('/api/publish', {
+      method:'POST',
+      cache:'no-store',
+      headers:{
+        'Content-Type':'application/json'
+      },
+      body:JSON.stringify({
+        content:content
+      })
+    });
 
-    /*
-      Image upload is disabled in this version to avoid "Failed to fetch".
-      Large base64 image uploads from browser to GitHub can fail.
-      This still saves:
-      - Text
-      - Promo boxes
-      - WhatsApp settings
-      - Facebook settings
-      - Navigation
-      - Calculator dropdowns
-      - SEO
-      To update photos, replace image files manually in GitHub assets folder.
-    */
+    const result = await safeJson(res);
+
+    if(!res.ok){
+      throw new Error((result.error || 'Publish failed') + (result.details ? ': ' + result.details : ''));
+    }
+
     pendingImages = [];
 
     $('saveState').textContent = 'Published to GitHub';
-    showStatus('Published successfully. Vercel may take a short while to redeploy.', 'success');
+    showStatus('Published successfully. Vercel may take 1-3 minutes to redeploy.', 'success');
 
   }catch(err){
     console.error(err);
@@ -841,14 +852,29 @@ async function saveToGithub(){
   }
 }
 
-async function reloadLatestContentFromGithub(){
+async function safeJson(res){
+  const text = await res.text();
   try{
-    showStatus('Reloading latest content from GitHub...', 'info');
+    return text ? JSON.parse(text) : {};
+  }catch{
+    return {message:text};
+  }
+}
 
-    const latest = await githubFetch(`${CONTENT_PATH}?ref=${encodeURIComponent(getGithubSettings().branch)}`, {method:'GET'});
-    const jsonText = decodeURIComponent(escape(atob(latest.content.replace(/\n/g,''))));
+async function reloadLatestContent(){
+  try{
+    showStatus('Reloading latest content from website file...', 'info');
 
-    content = JSON.parse(jsonText);
+    const res = await fetch('../' + CONTENT_PATH + '?v=' + Date.now(), {
+      method:'GET',
+      cache:'no-store'
+    });
+
+    if(!res.ok){
+      throw new Error('Unable to load content/site-content.json');
+    }
+
+    content = await res.json();
     normalizeContent();
     pendingImages = [];
 
@@ -856,63 +882,11 @@ async function reloadLatestContentFromGithub(){
     renderEditor();
     renderPreview();
 
-    showStatus('Latest content loaded from GitHub. You can edit and publish again.', 'success');
+    showStatus('Latest content loaded. You can edit and publish again.', 'success');
 
   }catch(err){
     showStatus('Reload failed: ' + err.message, 'error');
   }
-}
-
-async function putFile(path, data, message, isBase64=false){
-  const s = getGithubSettings();
-
-  if(!s.owner || !s.repo || !s.branch || !s.token){
-    throw new Error('Missing GitHub settings. Open Auto Save Setup first.');
-  }
-
-  const cleanPath = path.replace(/^\/+/, '');
-  const contentEncoded = isBase64 ? data : btoa(unescape(encodeURIComponent(data)));
-  let lastError = null;
-
-  for(let attempt=1; attempt<=5; attempt++){
-    try{
-      let sha = null;
-
-      try{
-        const existing = await githubFetch(`${cleanPath}?ref=${encodeURIComponent(s.branch.trim())}&t=${Date.now()}`, {
-          method:'GET',
-          headers:{'Cache-Control':'no-cache'}
-        });
-        sha = existing.sha;
-      }catch(err){
-        if(!String(err.message).includes('Not Found')){
-          throw err;
-        }
-      }
-
-      return await githubFetch(cleanPath, {
-        method:'PUT',
-        body:JSON.stringify({
-          message,
-          content:contentEncoded,
-          branch:s.branch.trim(),
-          ...(sha?{sha}:{})
-        })
-      });
-
-    }catch(err){
-      lastError = err;
-      const msg = String(err.message || '');
-
-      if(!msg.includes('does not match') && !msg.includes('sha') && !msg.includes('409')){
-        break;
-      }
-
-      await new Promise(resolve => setTimeout(resolve, 800 * attempt));
-    }
-  }
-
-  throw lastError || new Error('GitHub publish failed after retrying.');
 }
 
 function backupJson(){
