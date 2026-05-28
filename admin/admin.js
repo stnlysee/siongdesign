@@ -1,4 +1,4 @@
-/* GitHub Pages direct-publish version. Do not use api/publish.js with this file. */
+/* Fixed GitHub Pages version. Login password: siongadmin. Do not use api/publish.js with GitHub Pages. */
 const ADMIN_PASSWORD = 'siongadmin';
 const CONTENT_PATH = 'content/site-content.json';
 
@@ -18,67 +18,14 @@ const clone = (x) => JSON.parse(JSON.stringify(x));
 
 function defaultContent(){
   return {
-    site:{
-      businessName:'Siong Design',
-      tagline:'Premium Carpentry • Factory Price',
-      phone:'+65 8451 4057',
-      whatsappNumber:'6584514057',
-      whatsappButtonText:'WhatsApp Us',
-      whatsappDefaultMessage:'Hi Siong Design, I would like to request a quotation.',
-      showWhatsappFloat:true,
-      facebookUrl:'https://www.facebook.com/profile.php?id=61575290054499',
-      facebookButtonText:'Facebook: Siong Design',
-      showFacebookButton:true,
-      address:'',
-      defaultMetaDescription:''
-    },
-    navigation:[
-      {label:'Home',url:'index.html',enabled:true},
-      {label:'Services',url:'services.html',enabled:true},
-      {label:'Get Quote',url:'contact.html',enabled:true,button:true}
-    ],
-    home:{
-      heroTag:'HDB • Condo • Landed • Commercial',
-      heroTitle:'Premium carpentry at direct factory value.',
-      heroLead:'Siong Design builds kitchen cabinets, wardrobes, TV feature walls and custom carpentry for Singapore homes and businesses.',
-      primaryButtonText:'Calculate My Cost',
-      primaryButtonUrl:'calculator.html',
-      secondaryButtonText:'WhatsApp 8451 4057',
-      secondaryButtonUrl:'https://wa.me/6584514057',
-      thirdButtonText:'View Works',
-      thirdButtonUrl:'works.html'
-    },
-    promo:{
-      headline:'Kitchen & Wardrobe Promo',
-      subheadline:'Direct Factory Value',
-      fromPrice:'$110',
-      unit:'/FT',
-      note:'Kitchen top and bottom cabinets are calculated separately. Wardrobe promo starts from $220/ft. Terms and conditions apply.',
-      chips:['E0 wood','Internal & external laminate','ABS trimming','Soft-close options']
-    },
-    promoBoxes:[
-      {
-        headline:'Kitchen & Wardrobe Promo',
-        subheadline:'Direct Factory Value',
-        fromPrice:'$110',
-        unit:'/FT',
-        note:'Kitchen top and bottom cabinets are calculated separately. Wardrobe promo starts from $220/ft. Terms and conditions apply.',
-        chips:['E0 wood','Internal & external laminate','ABS trimming','Soft-close options']
-      }
-    ],
-    proof:[
-      {title:'From $110/ft',text:'Kitchen top/bottom promo, counted separately'},
-      {title:'Wardrobe $220/ft',text:'Selected casement wardrobe promo'},
-      {title:'Free Measurement',text:'Quotation before confirmation'}
-    ],
-    calculator:{
-      carpentryTypes:[{label:'Kitchen Cabinet Promo from $110/ft run',value:110}],
-      mobileTypes:[{label:'Kitchen Cabinet Promo from $110/ft',value:110}]
-    },
-    faq:[],
-    ai:{summary:'Siong Design is a Singapore carpentry company.',keywords:['Singapore carpentry']},
-    images: defaultImages(),
-    mobileSectionOrder:['m-home','m-services','m-why','m-works','m-calc','m-faq','m-contact']
+    site:{businessName:'Siong Design',tagline:'Premium Carpentry • Factory Price',phone:'+65 8451 4057',whatsappNumber:'6584514057',whatsappButtonText:'WhatsApp Us',whatsappDefaultMessage:'Hi Siong Design, I would like to request a quotation.',showWhatsappFloat:true,facebookUrl:'https://www.facebook.com/profile.php?id=61575290054499',facebookButtonText:'Facebook: Siong Design',showFacebookButton:true,address:'',defaultMetaDescription:''},
+    navigation:[{label:'Home',url:'index.html',enabled:true},{label:'Services',url:'services.html',enabled:true},{label:'Get Quote',url:'contact.html',enabled:true,button:true}],
+    home:{heroTag:'HDB • Condo • Landed • Commercial',heroTitle:'Premium carpentry at direct factory value.',heroLead:'Siong Design builds kitchen cabinets, wardrobes, TV feature walls and custom carpentry for Singapore homes and businesses.',primaryButtonText:'Calculate My Cost',primaryButtonUrl:'calculator.html',secondaryButtonText:'WhatsApp 8451 4057',secondaryButtonUrl:'https://wa.me/6584514057',thirdButtonText:'View Works',thirdButtonUrl:'works.html'},
+    promo:{headline:'Kitchen & Wardrobe Promo',subheadline:'Direct Factory Value',fromPrice:'$110',unit:'/FT',note:'Kitchen top and bottom cabinets are calculated separately. Wardrobe promo starts from $220/ft. Terms and conditions apply.',chips:['E0 wood','Internal & external laminate','ABS trimming','Soft-close options']},
+    promoBoxes:[{headline:'Kitchen & Wardrobe Promo',subheadline:'Direct Factory Value',fromPrice:'$110',unit:'/FT',note:'Kitchen top and bottom cabinets are calculated separately. Wardrobe promo starts from $220/ft. Terms and conditions apply.',chips:['E0 wood','Internal & external laminate','ABS trimming','Soft-close options']}],
+    proof:[{title:'From $110/ft',text:'Kitchen top/bottom promo, counted separately'},{title:'Wardrobe $220/ft',text:'Selected casement wardrobe promo'},{title:'Free Measurement',text:'Quotation before confirmation'}],
+    calculator:{carpentryTypes:[{label:'Kitchen Cabinet Promo from $110/ft run',value:110}],mobileTypes:[{label:'Kitchen Cabinet Promo from $110/ft',value:110}]},
+    faq:[], ai:{summary:'Siong Design is a Singapore carpentry company.',keywords:['Singapore carpentry']}, images: defaultImages(), mobileSectionOrder:['m-home','m-services','m-why','m-works','m-calc','m-faq','m-contact']
   };
 }
 
@@ -116,21 +63,13 @@ async function loadContent(){
 
 function normalizeContent(){
   const base = defaultContent();
-
   content.site = {...base.site, ...(content.site || {})};
   content.home = {...base.home, ...(content.home || {})};
   content.promo = {...base.promo, ...(content.promo || {})};
-
   if(!Array.isArray(content.promoBoxes) || !content.promoBoxes.length){
     content.promoBoxes = [clone(content.promo || base.promo)];
   }
-
-  content.promoBoxes = content.promoBoxes.map(box => ({
-    ...base.promo,
-    ...(box || {}),
-    chips:Array.isArray(box && box.chips) ? box.chips : clone(base.promo.chips)
-  }));
-
+  content.promoBoxes = content.promoBoxes.map(box => ({...base.promo, ...(box || {}), chips:Array.isArray(box && box.chips) ? box.chips : clone(base.promo.chips)}));
   content.promo = content.promoBoxes[0] || base.promo;
   content.navigation = Array.isArray(content.navigation) ? content.navigation : base.navigation;
   content.images = Array.isArray(content.images) && content.images.length ? content.images : defaultImages();
@@ -142,20 +81,11 @@ function normalizeContent(){
   content.mobileSectionOrder = Array.isArray(content.mobileSectionOrder) ? content.mobileSectionOrder : base.mobileSectionOrder;
 }
 
-function get(path){
-  return path.split('.').reduce((obj,key)=>obj && obj[key], content);
-}
-
+function get(path){return path.split('.').reduce((obj,key)=>obj && obj[key], content);}
 function set(path, value){
   const parts = path.split('.');
   let obj = content;
-
-  while(parts.length > 1){
-    const key = parts.shift();
-    obj[key] = obj[key] || {};
-    obj = obj[key];
-  }
-
+  while(parts.length > 1){ const key = parts.shift(); obj[key] = obj[key] || {}; obj = obj[key]; }
   obj[parts[0]] = value;
   markChanged();
 }
@@ -163,8 +93,7 @@ function set(path, value){
 function markChanged(){
   $('saveState').textContent = 'Unsaved changes';
   renderPreview();
-
-  if(getAdminSettings().autoSave === true){
+  if(getGithubSettings().autoSave === true){
     clearTimeout(autoSaveTimer);
     autoSaveTimer = setTimeout(saveToGithub, 3500);
   }
@@ -172,15 +101,11 @@ function markChanged(){
 
 function showStatus(message, type='info'){
   const box = $('status');
-  if(!box) return;
   box.textContent = message;
   box.className = 'status ' + type;
   box.classList.remove('hidden');
 }
-
-function hideStatus(){
-  if($('status')) $('status').classList.add('hidden');
-}
+function hideStatus(){ $('status').classList.add('hidden'); }
 
 function switchBlock(block){
   activeBlock = block;
@@ -197,39 +122,24 @@ function switchDevice(device){
 }
 
 function renderPreview(){
-  const navLinks = (content.navigation || [])
-    .filter(n=>n.enabled !== false)
-    .map(n=>`<a class="${n.button?'cta':''}" href="#" data-edit-list="nav">${esc(n.label)}</a>`)
-    .join('');
-
+  const navLinks = (content.navigation || []).filter(n=>n.enabled !== false).map(n=>`<a class="${n.button?'cta':''}" href="#" data-edit-list="nav">${esc(n.label)}</a>`).join('');
   const promoBoxes = Array.isArray(content.promoBoxes) && content.promoBoxes.length ? content.promoBoxes : [content.promo];
-
   const promoHtml = promoBoxes.map((box, idx)=>{
     const chips = (box.chips || []).map(c=>`<span class="chip">${esc(c)}</span>`).join('');
     return `<div class="preview-promo editable" data-block="promo" data-path="promoBoxes.${idx}.headline">
-      <h2>${esc(box.headline)}</h2>
-      <div class="red">${esc(box.subheadline)}</div>
-      <div class="preview-price"><small>FROM </small><strong>${esc(box.fromPrice)}</strong><span>${esc(box.unit)}</span></div>
-      <p>${esc(box.note)}</p>
-      <div class="chips">${chips}</div>
-    </div>`;
+          <h2>${esc(box.headline)}</h2>
+          <div class="red">${esc(box.subheadline)}</div>
+          <div class="preview-price"><small>FROM </small><strong>${esc(box.fromPrice)}</strong><span>${esc(box.unit)}</span></div>
+          <p>${esc(box.note)}</p>
+          <div class="chips">${chips}</div>
+        </div>`;
   }).join('');
-
-  const proof = (content.proof || [])
-    .map((p,i)=>`<div class="proof-card editable" data-block="proof" data-path="proof.${i}.title"><b>${esc(p.title)}</b><span>${esc(p.text)}</span></div>`)
-    .join('');
-
-  const showImages = (content.images || []).slice(0,8)
-    .map((img,i)=>`<div class="image-tile drop-target" data-image-index="${i}" data-block="images" style="background-image:url('../${esc(img.path)}?v=${Date.now()}')"><span>${esc(img.label)}</span></div>`)
-    .join('');
-
+  const proof = (content.proof || []).map((p,i)=>`<div class="proof-card editable" data-block="proof" data-path="proof.${i}.title"><b>${esc(p.title)}</b><span>${esc(p.text)}</span></div>`).join('');
+  const showImages = (content.images || []).slice(0,8).map((img,i)=>`<div class="image-tile drop-target" data-image-index="${i}" data-block="images" style="background-image:url('../${esc(img.path)}?v=${Date.now()}')"><span>${esc(img.label)}</span></div>`).join('');
   const html = `
     <div class="preview-shell ${activeDevice}">
       <div class="preview-nav editable" data-block="nav">
-        <div class="preview-brand editable" data-block="home" data-path="site.businessName">
-          <div class="preview-logo">SD</div>
-          <div>${esc(content.site.businessName)}<br><small>${esc(content.site.tagline)}</small></div>
-        </div>
+        <div class="preview-brand editable" data-block="home" data-path="site.businessName"><div class="preview-logo">SD</div><div>${esc(content.site.businessName)}<br><small>${esc(content.site.tagline)}</small></div></div>
         <div class="preview-links">${navLinks}</div>
       </div>
       <section class="preview-hero">
@@ -248,42 +158,18 @@ function renderPreview(){
       <div class="proof-grid">${proof}</div>
       <div class="image-strip">${showImages}</div>
     </div>`;
-
   $('visualPreview').innerHTML = html;
-
   qsa('[data-block]', $('visualPreview')).forEach(el => {
-    el.addEventListener('click', (e)=>{
-      e.preventDefault();
-      switchBlock(el.dataset.block);
-      if(el.dataset.path){
-        selectedPath = el.dataset.path;
-        renderEditor();
-      }
-    });
+    el.addEventListener('click', (e)=>{ e.preventDefault(); switchBlock(el.dataset.block); if(el.dataset.path){selectedPath=el.dataset.path; renderEditor();} });
   });
-
   qsa('.drop-target', $('visualPreview')).forEach(bindDropTarget);
 }
 
 function renderEditor(){
   hideStatus();
-
-  const titles = {
-    home:'Homepage Hero',
-    nav:'Nav / Dropdown Bar',
-    promo:'Promo Box',
-    proof:'Proof Points',
-    calculator:'Calculator Dropdowns',
-    images:'Photos',
-    mobile:'Mobile Section Order',
-    seo:'AI & SEO',
-    github:'Auto Save Setup',
-    json:'Advanced JSON'
-  };
-
+  const titles = {home:'Homepage Hero',nav:'Nav / Dropdown Bar',promo:'Promo Box',proof:'Proof Points',calculator:'Calculator Dropdowns',images:'Photos',mobile:'Mobile Section Order',seo:'AI & SEO',github:'Auto Save Setup',json:'Advanced JSON'};
   $('editorTitle').textContent = titles[activeBlock] || 'Editor';
   $('editorHelp').textContent = helpText(activeBlock);
-
   if(activeBlock === 'home') renderHomeEditor();
   if(activeBlock === 'nav') renderNavEditor();
   if(activeBlock === 'promo') renderPromoEditor();
@@ -303,10 +189,10 @@ function helpText(block){
     promo:'Edit the promotional price box and chips.',
     proof:'Drag proof cards to reorder or edit the short trust points.',
     calculator:'Edit calculator dropdown labels and prices.',
-    images:'Drag and drop new photos onto image cards for preview. Actual photo replacement should be done manually in GitHub assets folder.',
+    images:'Drag and drop new photos onto image cards or preview image tiles.',
     mobile:'Drag mobile website sections to change their order.',
     seo:'Make the website easier for Google and AI tools to understand.',
-    github:'Set up GitHub token so the portal can publish directly to GitHub Pages.',
+    github:'Set up GitHub token once so the portal can publish changes automatically.',
     json:'Advanced editor. Only edit this if you understand JSON.'
   }[block] || '';
 }
@@ -314,11 +200,7 @@ function helpText(block){
 function inputField(path,label,type='text',small=''){
   const val = get(path) ?? '';
   const selected = selectedPath === path ? ' style="box-shadow:0 0 0 3px rgba(195,145,46,.28);border-color:#c3912e"' : '';
-
-  if(type === 'textarea'){
-    return `<div class="field"><label>${label}</label><textarea data-path="${path}"${selected}>${esc(val)}</textarea>${small?`<small>${small}</small>`:''}</div>`;
-  }
-
+  if(type === 'textarea') return `<div class="field"><label>${label}</label><textarea data-path="${path}"${selected}>${esc(val)}</textarea>${small?`<small>${small}</small>`:''}</div>`;
   return `<div class="field"><label>${label}</label><input data-path="${path}" value="${esc(val)}"${selected}>${small?`<small>${small}</small>`:''}</div>`;
 }
 
@@ -341,8 +223,7 @@ function renderHomeEditor(){
     ${inputField('home.secondaryButtonUrl','Button 2 link')}
     ${inputField('home.thirdButtonText','Button 3 text')}
     ${inputField('home.thirdButtonUrl','Button 3 link')}
-    <hr>
-    <div class="hint"><b>WhatsApp and Facebook buttons</b> These control the floating WhatsApp button, mobile WhatsApp buttons and Facebook links.</div>
+    <hr><div class="hint"><b>WhatsApp and Facebook buttons</b> These control the floating WhatsApp button, mobile WhatsApp buttons and Facebook links.</div>
     ${inputField('site.whatsappNumber','WhatsApp number','text','Use country code without +, example: 6584514057')}
     ${inputField('site.whatsappButtonText','Floating WhatsApp button text')}
     ${inputField('site.whatsappDefaultMessage','Default WhatsApp message','textarea')}
@@ -350,18 +231,9 @@ function renderHomeEditor(){
     ${inputField('site.facebookUrl','Facebook URL')}
     ${inputField('site.facebookButtonText','Facebook button text')}
     <div class="repeat-card"><label><input type="checkbox" id="showFacebookButton" ${content.site.showFacebookButton!==false?'checked':''}> Show Facebook button</label></div>`;
-
   bindPathInputs();
-
-  $('showWhatsappFloat').addEventListener('change', e=>{
-    content.site.showWhatsappFloat = e.target.checked;
-    markChanged();
-  });
-
-  $('showFacebookButton').addEventListener('change', e=>{
-    content.site.showFacebookButton = e.target.checked;
-    markChanged();
-  });
+  $('showWhatsappFloat').addEventListener('change', e=>{content.site.showWhatsappFloat = e.target.checked; markChanged();});
+  $('showFacebookButton').addEventListener('change', e=>{content.site.showFacebookButton = e.target.checked; markChanged();});
 }
 
 function promoBoxFields(box,i){
@@ -374,295 +246,121 @@ function promoBoxFields(box,i){
     <div class="field"><label>Note</label><textarea data-promo-field="note" data-index="${i}">${esc(box.note)}</textarea></div>
     <div class="hint">Chips / highlights</div>
     ${(box.chips||[]).map((chip,j)=>`<div class="mini-row"><input data-promo-chip="${i}:${j}" value="${esc(chip)}"><button class="danger" type="button" data-remove-promo-chip="${i}:${j}">Remove</button></div>`).join('')}
-    <div class="row-actions">
-      <button type="button" data-add-promo-chip="${i}">+ Add chip</button>
-      <button class="danger" type="button" data-remove-promo="${i}">Remove promo box</button>
-    </div>
+    <div class="row-actions"><button type="button" data-add-promo-chip="${i}">+ Add chip</button><button class="danger" type="button" data-remove-promo="${i}">Remove promo box</button></div>
   </div>`;
 }
 
 function renderPromoEditor(){
   normalizeContent();
-
-  $('editorFields').innerHTML =
-    `<div class="hint">Add, remove, edit and drag promo boxes. The first promo box is also kept as the website's main promo for older pages.</div>` +
+  $('editorFields').innerHTML = `<div class="hint">Add, remove, edit and drag promo boxes. The first promo box is also kept as the website's main promo for older pages.</div>` +
     (content.promoBoxes||[]).map((box,i)=>promoBoxFields(box,i)).join('') +
     `<button id="addPromoBox" type="button">+ Add promo box</button>`;
-
   qsa('[data-promo-field]').forEach(el=>el.addEventListener('input',e=>{
-    const i = Number(e.target.dataset.index);
-    const key = e.target.dataset.promoField;
-    content.promoBoxes[i][key] = e.target.value;
-    content.promo = content.promoBoxes[0];
-    markChanged();
+    const i=Number(e.target.dataset.index); const key=e.target.dataset.promoField;
+    content.promoBoxes[i][key]=e.target.value; content.promo = content.promoBoxes[0]; markChanged();
   }));
-
   qsa('[data-promo-chip]').forEach(el=>el.addEventListener('input',e=>{
-    const [i,j] = e.target.dataset.promoChip.split(':').map(Number);
-    content.promoBoxes[i].chips[j] = e.target.value;
-    content.promo = content.promoBoxes[0];
-    markChanged();
+    const [i,j]=e.target.dataset.promoChip.split(':').map(Number);
+    content.promoBoxes[i].chips[j]=e.target.value; content.promo = content.promoBoxes[0]; markChanged();
   }));
-
   qsa('[data-remove-promo-chip]').forEach(btn=>btn.onclick=()=>{
-    const [i,j] = btn.dataset.removePromoChip.split(':').map(Number);
-    content.promoBoxes[i].chips.splice(j,1);
-    content.promo = content.promoBoxes[0];
-    markChanged();
-    renderPromoEditor();
+    const [i,j]=btn.dataset.removePromoChip.split(':').map(Number);
+    content.promoBoxes[i].chips.splice(j,1); content.promo = content.promoBoxes[0]; markChanged(); renderPromoEditor();
   });
-
   qsa('[data-add-promo-chip]').forEach(btn=>btn.onclick=()=>{
-    const i = Number(btn.dataset.addPromoChip);
-    content.promoBoxes[i].chips.push('New highlight');
-    content.promo = content.promoBoxes[0];
-    markChanged();
-    renderPromoEditor();
+    const i=Number(btn.dataset.addPromoChip); content.promoBoxes[i].chips.push('New highlight'); content.promo = content.promoBoxes[0]; markChanged(); renderPromoEditor();
   });
-
   qsa('[data-remove-promo]').forEach(btn=>btn.onclick=()=>{
-    if(content.promoBoxes.length <= 1){
-      showStatus('Keep at least one promo box.', 'error');
-      return;
-    }
-    content.promoBoxes.splice(Number(btn.dataset.removePromo),1);
-    content.promo = content.promoBoxes[0];
-    markChanged();
-    renderPromoEditor();
+    if(content.promoBoxes.length <= 1){showStatus('Keep at least one promo box.', 'error'); return;}
+    content.promoBoxes.splice(Number(btn.dataset.removePromo),1); content.promo = content.promoBoxes[0]; markChanged(); renderPromoEditor();
   });
-
   $('addPromoBox').onclick=()=>{
-    content.promoBoxes.push({
-      headline:'New Promo',
-      subheadline:'Special Offer',
-      fromPrice:'$110',
-      unit:'/FT',
-      note:'Add your promo details here.',
-      chips:['New highlight']
-    });
-    content.promo = content.promoBoxes[0];
-    markChanged();
-    renderPromoEditor();
+    content.promoBoxes.push({headline:'New Promo',subheadline:'Special Offer',fromPrice:'$110',unit:'/FT',note:'Add your promo details here.',chips:['New highlight']});
+    content.promo = content.promoBoxes[0]; markChanged(); renderPromoEditor();
   };
-
-  bindDragSort('[data-promo-index]', content.promoBoxes, ()=>{
-    content.promo = content.promoBoxes[0];
-    renderPromoEditor();
-  }, 'promoIndex');
+  bindDragSort('[data-promo-index]', content.promoBoxes, ()=>{content.promo = content.promoBoxes[0]; renderPromoEditor();}, 'promoIndex');
 }
 
 function renderNavEditor(){
-  $('editorFields').innerHTML =
-    `<div class="hint">Drag to reorder. Use Button Style for the Get Quote button.</div>` +
+  $('editorFields').innerHTML = `<div class="hint">Drag to reorder. Use Button Style for the Get Quote button.</div>` +
     (content.navigation||[]).map((item,i)=>`<div class="repeat-card" draggable="true" data-nav-index="${i}">
       <div class="drag-handle">☰ Drag menu item</div>
       <div class="field"><label>Label</label><input data-nav-field="label" data-index="${i}" value="${esc(item.label)}"></div>
       <div class="field"><label>Link</label><input data-nav-field="url" data-index="${i}" value="${esc(item.url)}"></div>
-      <div class="row-actions">
-        <label><input type="checkbox" data-nav-field="enabled" data-index="${i}" ${item.enabled!==false?'checked':''}> Show</label>
-        <label><input type="checkbox" data-nav-field="button" data-index="${i}" ${item.button?'checked':''}> Button style</label>
-      </div>
+      <div class="row-actions"><label><input type="checkbox" data-nav-field="enabled" data-index="${i}" ${item.enabled!==false?'checked':''}> Show</label><label><input type="checkbox" data-nav-field="button" data-index="${i}" ${item.button?'checked':''}> Button style</label></div>
       <div class="row-actions"><button class="danger" type="button" data-remove-nav="${i}">Remove</button></div>
-    </div>`).join('') +
-    `<button id="addNav" type="button">+ Add nav item</button>`;
-
-  qsa('[data-nav-field]').forEach(el=>el.addEventListener('input',e=>{
-    const i = Number(e.target.dataset.index);
-    const key = e.target.dataset.navField;
-    content.navigation[i][key] = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
-    markChanged();
-  }));
-
-  qsa('[data-remove-nav]').forEach(btn=>btn.onclick=()=>{
-    content.navigation.splice(Number(btn.dataset.removeNav),1);
-    markChanged();
-    renderNavEditor();
-  });
-
-  $('addNav').onclick=()=>{
-    content.navigation.push({label:'New Page',url:'#',enabled:true});
-    markChanged();
-    renderNavEditor();
-  };
-
+    </div>`).join('') + `<button id="addNav" type="button">+ Add nav item</button>`;
+  qsa('[data-nav-field]').forEach(el=>el.addEventListener('input',e=>{const i=Number(e.target.dataset.index); const key=e.target.dataset.navField; content.navigation[i][key] = e.target.type==='checkbox'?e.target.checked:e.target.value; markChanged();}));
+  qsa('[data-remove-nav]').forEach(btn=>btn.onclick=()=>{content.navigation.splice(Number(btn.dataset.removeNav),1); markChanged(); renderNavEditor();});
+  $('addNav').onclick=()=>{content.navigation.push({label:'New Page',url:'#',enabled:true}); markChanged(); renderNavEditor();};
   bindDragSort('[data-nav-index]', content.navigation, renderNavEditor, 'navIndex');
 }
 
 function renderProofEditor(){
-  $('editorFields').innerHTML =
-    (content.proof||[]).map((item,i)=>`<div class="repeat-card" draggable="true" data-proof-index="${i}">
-      <div class="drag-handle">☰ Drag proof point</div>
-      <div class="field"><label>Title</label><input data-proof-field="title" data-index="${i}" value="${esc(item.title)}"></div>
-      <div class="field"><label>Text</label><textarea data-proof-field="text" data-index="${i}">${esc(item.text)}</textarea></div>
-      <button class="danger" type="button" data-remove-proof="${i}">Remove</button>
-    </div>`).join('') +
-    `<button id="addProof" type="button">+ Add proof point</button>`;
-
-  qsa('[data-proof-field]').forEach(el=>el.addEventListener('input',e=>{
-    const i = Number(e.target.dataset.index);
-    content.proof[i][e.target.dataset.proofField] = e.target.value;
-    markChanged();
-  }));
-
-  qsa('[data-remove-proof]').forEach(btn=>btn.onclick=()=>{
-    content.proof.splice(Number(btn.dataset.removeProof),1);
-    markChanged();
-    renderProofEditor();
-  });
-
-  $('addProof').onclick=()=>{
-    content.proof.push({title:'New proof',text:'Short explanation'});
-    markChanged();
-    renderProofEditor();
-  };
-
+  $('editorFields').innerHTML = (content.proof||[]).map((item,i)=>`<div class="repeat-card" draggable="true" data-proof-index="${i}">
+    <div class="drag-handle">☰ Drag proof point</div>
+    <div class="field"><label>Title</label><input data-proof-field="title" data-index="${i}" value="${esc(item.title)}"></div>
+    <div class="field"><label>Text</label><textarea data-proof-field="text" data-index="${i}">${esc(item.text)}</textarea></div>
+    <button class="danger" type="button" data-remove-proof="${i}">Remove</button>
+  </div>`).join('') + `<button id="addProof" type="button">+ Add proof point</button>`;
+  qsa('[data-proof-field]').forEach(el=>el.addEventListener('input',e=>{const i=Number(e.target.dataset.index); content.proof[i][e.target.dataset.proofField]=e.target.value; markChanged();}));
+  qsa('[data-remove-proof]').forEach(btn=>btn.onclick=()=>{content.proof.splice(Number(btn.dataset.removeProof),1); markChanged(); renderProofEditor();});
+  $('addProof').onclick=()=>{content.proof.push({title:'New proof',text:'Short explanation'}); markChanged(); renderProofEditor();};
   bindDragSort('[data-proof-index]', content.proof, renderProofEditor, 'proofIndex');
 }
 
 function renderCalculatorEditor(){
-  $('editorFields').innerHTML =
-    `<div class="hint">Desktop calculator dropdown</div>` +
-    renderPriceList(content.calculator.carpentryTypes,'desktop') +
-    `<button id="addDesktopCalc" type="button">+ Add desktop option</button>
-    <hr>
-    <div class="hint">Mobile calculator dropdown</div>` +
-    renderPriceList(content.calculator.mobileTypes,'mobile') +
-    `<button id="addMobileCalc" type="button">+ Add mobile option</button>`;
-
+  $('editorFields').innerHTML = `<div class="hint">Desktop calculator dropdown</div>` + renderPriceList(content.calculator.carpentryTypes,'desktop') + `<button id="addDesktopCalc" type="button">+ Add desktop option</button><hr><div class="hint">Mobile calculator dropdown</div>` + renderPriceList(content.calculator.mobileTypes,'mobile') + `<button id="addMobileCalc" type="button">+ Add mobile option</button>`;
   bindPriceList('desktop', content.calculator.carpentryTypes, renderCalculatorEditor);
   bindPriceList('mobile', content.calculator.mobileTypes, renderCalculatorEditor);
-
-  $('addDesktopCalc').onclick=()=>{
-    content.calculator.carpentryTypes.push({label:'New option from $100/ft run',value:100});
-    markChanged();
-    renderCalculatorEditor();
-  };
-
-  $('addMobileCalc').onclick=()=>{
-    content.calculator.mobileTypes.push({label:'New option from $100/ft',value:100});
-    markChanged();
-    renderCalculatorEditor();
-  };
+  $('addDesktopCalc').onclick=()=>{content.calculator.carpentryTypes.push({label:'New option from $100/ft run',value:100}); markChanged(); renderCalculatorEditor();};
+  $('addMobileCalc').onclick=()=>{content.calculator.mobileTypes.push({label:'New option from $100/ft',value:100}); markChanged(); renderCalculatorEditor();};
 }
-
-function renderPriceList(list,type){
-  return (list||[]).map((item,i)=>`<div class="repeat-card" draggable="true" data-${type}-calc-index="${i}">
-    <div class="drag-handle">☰ Drag option</div>
-    <div class="field"><label>Label</label><input data-price-list="${type}" data-price-field="label" data-index="${i}" value="${esc(item.label)}"></div>
-    <div class="field"><label>Price / ft</label><input type="number" data-price-list="${type}" data-price-field="value" data-index="${i}" value="${esc(item.value)}"></div>
-    <button class="danger" type="button" data-remove-price="${type}:${i}">Remove</button>
-  </div>`).join('');
-}
-
+function renderPriceList(list,type){return (list||[]).map((item,i)=>`<div class="repeat-card" draggable="true" data-${type}-calc-index="${i}"><div class="drag-handle">☰ Drag option</div><div class="field"><label>Label</label><input data-price-list="${type}" data-price-field="label" data-index="${i}" value="${esc(item.label)}"></div><div class="field"><label>Price / ft</label><input type="number" data-price-list="${type}" data-price-field="value" data-index="${i}" value="${esc(item.value)}"></div><button class="danger" type="button" data-remove-price="${type}:${i}">Remove</button></div>`).join('');}
 function bindPriceList(type,list,rerender){
-  qsa(`[data-price-list="${type}"]`).forEach(el=>el.addEventListener('input',e=>{
-    const i = Number(e.target.dataset.index);
-    const key = e.target.dataset.priceField;
-    list[i][key] = key === 'value' ? Number(e.target.value) : e.target.value;
-    markChanged();
-  }));
-
-  qsa(`[data-remove-price^="${type}:"]`).forEach(btn=>btn.onclick=()=>{
-    list.splice(Number(btn.dataset.removePrice.split(':')[1]),1);
-    markChanged();
-    rerender();
-  });
-
+  qsa(`[data-price-list="${type}"]`).forEach(el=>el.addEventListener('input',e=>{const i=Number(e.target.dataset.index); const key=e.target.dataset.priceField; list[i][key] = key==='value'?Number(e.target.value):e.target.value; markChanged();}));
+  qsa(`[data-remove-price^="${type}:"]`).forEach(btn=>btn.onclick=()=>{list.splice(Number(btn.dataset.removePrice.split(':')[1]),1); markChanged(); rerender();});
   bindDragSort(`[data-${type}-calc-index]`, list, rerender, `${type}CalcIndex`);
 }
 
 function renderImagesEditor(){
-  $('editorFields').innerHTML =
-    `<div class="hint">Drop a photo onto any image card for preview. Actual image file upload is disabled in this simple version. To replace actual photos, upload the photo manually in GitHub assets folder.</div>` +
+  $('editorFields').innerHTML = `<div class="hint">Drop a photo onto any image card. Then click Publish to GitHub. The image will replace the selected file path.</div>` +
     (content.images||[]).map((img,i)=>`<div class="image-card">
       <div class="thumb-drop" data-image-index="${i}" style="background-image:url('../${esc(img.path)}?v=${Date.now()}')">Drop photo here</div>
       <div class="field"><label>Image name</label><input data-img-field="label" data-index="${i}" value="${esc(img.label)}"></div>
       <div class="field"><label>File path</label><input data-img-field="path" data-index="${i}" value="${esc(img.path)}"><small>Example: assets/hero-kitchen-grey.png</small></div>
       <div class="field"><label>Alt text for SEO / AI</label><input data-img-field="alt" data-index="${i}" value="${esc(img.alt)}"></div>
       <button class="danger" type="button" data-remove-image="${i}">Remove slot</button>
-    </div>`).join('') +
-    `<button id="addImage" type="button">+ Add image slot</button>`;
-
-  qsa('[data-img-field]').forEach(el=>el.addEventListener('input',e=>{
-    const i = Number(e.target.dataset.index);
-    content.images[i][e.target.dataset.imgField] = e.target.value;
-    markChanged();
-  }));
-
-  qsa('[data-remove-image]').forEach(btn=>btn.onclick=()=>{
-    content.images.splice(Number(btn.dataset.removeImage),1);
-    markChanged();
-    renderImagesEditor();
-  });
-
-  $('addImage').onclick=()=>{
-    content.images.push({label:'New Image',path:'assets/new-image.png',alt:'Describe this image'});
-    markChanged();
-    renderImagesEditor();
-  };
-
+    </div>`).join('') + `<button id="addImage" type="button">+ Add image slot</button>`;
+  qsa('[data-img-field]').forEach(el=>el.addEventListener('input',e=>{const i=Number(e.target.dataset.index); content.images[i][e.target.dataset.imgField]=e.target.value; markChanged();}));
+  qsa('[data-remove-image]').forEach(btn=>btn.onclick=()=>{content.images.splice(Number(btn.dataset.removeImage),1); markChanged(); renderImagesEditor();});
+  $('addImage').onclick=()=>{content.images.push({label:'New Image',path:'assets/new-image.png',alt:'Describe this image'}); markChanged(); renderImagesEditor();};
   qsa('.thumb-drop').forEach(bindDropTarget);
 }
 
 function bindDropTarget(zone){
-  zone.addEventListener('dragover', e=>{
-    e.preventDefault();
-    zone.classList.add('over','dragover');
-  });
-
-  zone.addEventListener('dragleave', ()=>{
-    zone.classList.remove('over','dragover');
-  });
-
+  zone.addEventListener('dragover', e=>{e.preventDefault(); zone.classList.add('over','dragover');});
+  zone.addEventListener('dragleave', ()=>zone.classList.remove('over','dragover'));
   zone.addEventListener('drop', async e=>{
-    e.preventDefault();
-    zone.classList.remove('over','dragover');
-
+    e.preventDefault(); zone.classList.remove('over','dragover');
     const file = e.dataTransfer.files && e.dataTransfer.files[0];
-
-    if(!file || !file.type.startsWith('image/')){
-      showStatus('Please drop an image file.', 'error');
-      return;
-    }
-
+    if(!file || !file.type.startsWith('image/')){showStatus('Please drop an image file.', 'error'); return;}
     const index = Number(zone.dataset.imageIndex);
     const dataUrl = await fileToDataUrl(file);
-
     pendingImages = pendingImages.filter(x => x.index !== index);
     pendingImages.push({index, dataUrl, fileName:file.name});
-
     zone.style.backgroundImage = `url('${dataUrl}')`;
-
-    showStatus('Photo preview updated. Actual image upload is disabled for now. Upload the photo manually in GitHub assets folder.', 'info');
+    showStatus(`Photo ready: ${file.name}. Click Publish to GitHub to update it.`, 'success');
     markChanged();
   });
 }
 
 function renderMobileEditor(){
-  const labels = {
-    'm-home':'Home',
-    'm-services':'Services',
-    'm-why':'Why Us',
-    'm-works':'Works',
-    'm-calc':'Calculator',
-    'm-faq':'FAQ',
-    'm-contact':'Contact'
-  };
-
-  $('editorFields').innerHTML =
-    `<div class="hint">This controls the order of mobile one-page sections. Publish after reordering.</div>` +
-    content.mobileSectionOrder.map((id,i)=>`<div class="repeat-card" draggable="true" data-mobile-index="${i}">
-      <div class="drag-handle">☰ Drag section</div>
-      <b>${esc(labels[id] || id)}</b><br><small>${esc(id)}</small>
-    </div>`).join('') +
+  const labels = { 'm-home':'Home', 'm-services':'Services', 'm-why':'Why Us', 'm-works':'Works', 'm-calc':'Calculator', 'm-faq':'FAQ', 'm-contact':'Contact' };
+  $('editorFields').innerHTML = `<div class="hint">This controls the order of mobile one-page sections. Publish after reordering.</div>` +
+    content.mobileSectionOrder.map((id,i)=>`<div class="repeat-card" draggable="true" data-mobile-index="${i}"><div class="drag-handle">☰ Drag section</div><b>${esc(labels[id] || id)}</b><br><small>${esc(id)}</small></div>`).join('') +
     `<button id="resetMobile" type="button">Reset mobile order</button>`;
-
-  $('resetMobile').onclick=()=>{
-    content.mobileSectionOrder = defaultContent().mobileSectionOrder;
-    markChanged();
-    renderMobileEditor();
-  };
-
+  $('resetMobile').onclick=()=>{content.mobileSectionOrder = defaultContent().mobileSectionOrder; markChanged(); renderMobileEditor();};
   bindDragSort('[data-mobile-index]', content.mobileSectionOrder, renderMobileEditor, 'mobileIndex');
 }
 
@@ -672,120 +370,54 @@ function renderSeoEditor(){
     ${inputField('ai.summary','AI summary','textarea')}
     <div class="field"><label>AI keywords, one per line</label><textarea id="keywordBox">${esc((content.ai.keywords||[]).join('\n'))}</textarea></div>
     ${inputField('site.address','Address','textarea')}`;
-
   bindPathInputs();
-
-  $('keywordBox').addEventListener('input', e=>{
-    content.ai.keywords = e.target.value.split('\n').map(x=>x.trim()).filter(Boolean);
-    markChanged();
-  });
+  $('keywordBox').addEventListener('input', e=>{content.ai.keywords = e.target.value.split('\n').map(x=>x.trim()).filter(Boolean); markChanged();});
 }
 
 function renderGithubEditor(){
   const s = getGithubSettings();
-
-  $('editorFields').innerHTML = `
-    <div class="hint">
-      <b>GitHub Pages Direct Publish Mode</b><br>
-      Fill this in once. The token is stored only in this browser local storage.
-      <br><br>
-      Token must have:
-      <br>Repository: stnlysee/siongdesign
-      <br>Contents: Read and write
-      <br>Metadata: Read-only
-    </div>
-
-    <div class="field"><label>GitHub owner / username</label><input id="ghOwner" value="${esc(s.owner || 'stnlysee')}" placeholder="stnlysee"></div>
-    <div class="field"><label>Repository name</label><input id="ghRepo" value="${esc(s.repo || 'siongdesign')}" placeholder="siongdesign"></div>
-    <div class="field"><label>Branch</label><input id="ghBranch" value="${esc(s.branch || 'main')}" placeholder="main"></div>
-    <div class="field"><label>GitHub token</label><input id="ghToken" type="password" value="${esc(s.token || '')}" placeholder="github_pat_..."></div>
-
-    <div class="repeat-card">
-      <label><input id="autoSaveToggle" type="checkbox" ${s.autoSave ? 'checked' : ''}> Auto publish about 3.5 seconds after every edit</label>
-      <small>This creates many GitHub commits. Recommended only after testing.</small>
-    </div>
-
-    <div class="row-actions">
-      <button id="saveSettings" class="primary" type="button">Save Settings</button>
-      <button id="testSettings" type="button">Test Connection</button>
-      <button id="reloadLatest" type="button">Reload Latest Content</button>
-      <button id="clearSettings" class="danger" type="button">Clear Token</button>
-    </div>`;
-
-  $('saveSettings').onclick=()=>{
-    saveSettingsFromForm();
-    showStatus('GitHub settings saved in this browser.', 'success');
-  };
-
-  $('testSettings').onclick=async()=>{
-    saveSettingsFromForm();
-    await testGithubConnection();
-  };
-
-  $('reloadLatest').onclick=async()=>{
-    saveSettingsFromForm();
-    await reloadLatestContentFromGithub();
-  };
-
-  $('clearSettings').onclick=()=>{
-    localStorage.removeItem('siongGithubSettings');
-    showStatus('Saved token cleared.', 'success');
-    renderGithubEditor();
-  };
+  $('editorFields').innerHTML = `<div class="hint"><b>Important:</b> The token is stored only in this browser. Use a fine-grained GitHub token with Repository Contents: Read and Write.</div>
+    <div class="field"><label>GitHub owner / username</label><input id="ghOwner" value="${esc(s.owner)}" placeholder="stnlysee"></div>
+    <div class="field"><label>Repository name</label><input id="ghRepo" value="${esc(s.repo)}" placeholder="siongdesign"></div>
+    <div class="field"><label>Branch</label><input id="ghBranch" value="${esc(s.branch || 'main')}"></div>
+    <div class="field"><label>GitHub token</label><input id="ghToken" type="password" value="${esc(s.token)}" placeholder="github_pat_..."></div>
+    <div class="repeat-card"><label><input id="autoSaveToggle" type="checkbox" ${s.autoSave?'checked':''}> Auto publish about 3.5 seconds after every edit</label><small>This creates many GitHub commits. Recommended only after testing.</small></div>
+    <div class="row-actions"><button id="saveSettings" class="primary" type="button">Save Settings</button><button id="testSettings" type="button">Test Connection</button><button id="reloadLatest" type="button">Reload Latest Content</button><button id="clearSettings" class="danger" type="button">Clear Token</button></div>`;
+  $('saveSettings').onclick=()=>{saveSettingsFromForm(); showStatus('GitHub settings saved in this browser.', 'success');};
+  $('testSettings').onclick=async()=>{saveSettingsFromForm(); await testGithubConnection();};
+  $('reloadLatest').onclick=async()=>{saveSettingsFromForm(); await reloadLatestContentFromGithub();};
+  $('clearSettings').onclick=()=>{localStorage.removeItem('siongGithubSettings'); showStatus('Saved token cleared.', 'success'); renderGithubEditor();};
 }
 
 function renderJsonEditor(){
   $('editorFields').innerHTML = `<div class="hint">Be careful: invalid JSON will not save correctly.</div><textarea id="jsonArea" class="json-area">${esc(JSON.stringify(content,null,2))}</textarea>`;
-
   $('jsonArea').addEventListener('input', e=>{
-    try{
-      content = JSON.parse(e.target.value);
-      normalizeContent();
-      markChanged();
-    }catch(err){
-      $('saveState').textContent = 'JSON error';
-    }
+    try{ content = JSON.parse(e.target.value); normalizeContent(); markChanged(); }
+    catch(err){ $('saveState').textContent = 'JSON error'; }
   });
 }
 
 function bindDragSort(selector, arr, rerender, datasetKey){
   let from = null;
-
   qsa(selector, $('editorFields')).forEach(card=>{
-    card.addEventListener('dragstart',()=>{
-      from = Number(card.dataset[datasetKey]);
-      card.classList.add('dragging');
-    });
-
+    card.addEventListener('dragstart',()=>{ from = Number(card.dataset[datasetKey]); card.classList.add('dragging'); });
     card.addEventListener('dragend',()=>card.classList.remove('dragging'));
-
     card.addEventListener('dragover', e=>e.preventDefault());
-
     card.addEventListener('drop', e=>{
       e.preventDefault();
-
       const to = Number(card.dataset[datasetKey]);
-
       if(Number.isNaN(from) || Number.isNaN(to) || from === to) return;
-
       const [item] = arr.splice(from,1);
       arr.splice(to,0,item);
       from = null;
-
       markChanged();
       rerender();
     });
   });
 }
 
-function fileToDataUrl(file){
-  return new Promise((resolve,reject)=>{
-    const r = new FileReader();
-    r.onload = ()=>resolve(r.result);
-    r.onerror = reject;
-    r.readAsDataURL(file);
-  });
-}
+function fileToDataUrl(file){return new Promise((resolve,reject)=>{const r = new FileReader(); r.onload=()=>resolve(r.result); r.onerror=reject; r.readAsDataURL(file);});}
+function dataUrlToBase64(dataUrl){return dataUrl.split(',')[1];}
 
 function getGithubSettings(){
   try{
@@ -806,25 +438,19 @@ function getGithubSettings(){
     };
   }
 }
-
 function saveSettingsFromForm(){
-  const settings = {
-    owner:$('ghOwner').value.trim(),
-    repo:$('ghRepo').value.trim(),
-    branch:$('ghBranch').value.trim() || 'main',
-    token:$('ghToken').value.trim(),
-    autoSave:$('autoSaveToggle').checked
-  };
-
+  const settings = {owner:$('ghOwner').value.trim(), repo:$('ghRepo').value.trim(), branch:$('ghBranch').value.trim() || 'main', token:$('ghToken').value.trim(), autoSave:$('autoSaveToggle').checked};
   localStorage.setItem('siongGithubSettings', JSON.stringify(settings));
 }
-
-async function githubApi(url, options = {}){
+async function githubFetch(path, options={}){
   const s = getGithubSettings();
 
   if(!s.owner || !s.repo || !s.branch || !s.token){
     throw new Error('Missing GitHub settings. Open Auto Save Setup first.');
   }
+
+  const cleanPath = path.replace(/^\/+/, '');
+  const url = `https://api.github.com/repos/${encodeURIComponent(s.owner.trim())}/${encodeURIComponent(s.repo.trim())}/contents/${cleanPath}`;
 
   let res;
 
@@ -841,7 +467,7 @@ async function githubApi(url, options = {}){
       }
     });
   }catch(err){
-    throw new Error('Failed to fetch. Browser/network blocked GitHub API. Try Chrome/Edge, disable VPN/adblock, and open GitHub Pages using https.');
+    throw new Error('Failed to fetch. Try Chrome/Edge, disable VPN/adblock, and open https://stnlysee.github.io/siongdesign/admin/index.html');
   }
 
   const text = await res.text();
@@ -859,23 +485,10 @@ async function githubApi(url, options = {}){
 
   return body;
 }
-
-function githubContentUrl(path, ref = true){
-  const s = getGithubSettings();
-  const cleanPath = path.replace(/^\/+/, '');
-  const base = `https://api.github.com/repos/${encodeURIComponent(s.owner.trim())}/${encodeURIComponent(s.repo.trim())}/contents/${cleanPath}`;
-  return ref ? `${base}?ref=${encodeURIComponent(s.branch.trim())}&t=${Date.now()}` : base;
-}
-
 async function testGithubConnection(){
-  try{
-    await githubApi(githubContentUrl(CONTENT_PATH, true), {method:'GET'});
-    showStatus('Connection successful. Publishing is ready.', 'success');
-  }catch(err){
-    showStatus('Connection failed: ' + err.message, 'error');
-  }
+  try{await githubFetch(`${CONTENT_PATH}?ref=${encodeURIComponent(getGithubSettings().branch)}`, {method:'GET'}); showStatus('Connection successful. Publishing is ready.', 'success');}
+  catch(err){showStatus('Connection failed: ' + err.message, 'error');}
 }
-
 async function saveToGithub(){
   if(isPublishing){
     showStatus('Already publishing. Please wait a moment.', 'info');
@@ -891,22 +504,14 @@ async function saveToGithub(){
 
     await putFile(
       CONTENT_PATH,
-      JSON.stringify(content, null, 2),
+      JSON.stringify(content,null,2),
       'Update website content from visual admin builder'
     );
 
     /*
-      Image upload is disabled in this GitHub Pages version to reduce Failed to fetch errors.
-      This still saves:
-      - Text
-      - Promo boxes
-      - WhatsApp settings
-      - Facebook settings
-      - Navigation
-      - Calculator dropdowns
-      - SEO
-
-      To update actual photos, replace image files manually in GitHub assets folder.
+      Actual photo upload is disabled in this GitHub Pages version to avoid browser upload errors.
+      This still saves text, promo boxes, WhatsApp, Facebook, nav, calculator and SEO.
+      To update actual photos, replace the image files manually in the GitHub assets folder.
     */
     pendingImages = [];
 
@@ -924,81 +529,40 @@ async function saveToGithub(){
 async function reloadLatestContentFromGithub(){
   try{
     showStatus('Reloading latest content from GitHub...', 'info');
-
-    const latest = await githubApi(githubContentUrl(CONTENT_PATH, true), {method:'GET'});
-    const jsonText = decodeBase64Utf8(latest.content.replace(/
-/g, ''));
-
+    const latest = await githubFetch(`${CONTENT_PATH}?ref=${encodeURIComponent(getGithubSettings().branch)}`, {method:'GET'});
+    const jsonText = decodeURIComponent(escape(atob(latest.content.replace(/\n/g,''))));
     content = JSON.parse(jsonText);
     normalizeContent();
     pendingImages = [];
-
     $('saveState').textContent = 'Latest content loaded';
     renderEditor();
     renderPreview();
-
     showStatus('Latest content loaded from GitHub. You can edit and publish again.', 'success');
-
-  }catch(err){
-    showStatus('Reload failed: ' + err.message, 'error');
-  }
+  }catch(err){showStatus('Reload failed: ' + err.message, 'error');}
 }
 
-async function putFile(path, data, message){
+async function putFile(path, data, message, isBase64=false){
   const s = getGithubSettings();
-
-  if(!s.owner || !s.repo || !s.branch || !s.token){
-    throw new Error('Missing GitHub settings. Open Auto Save Setup first.');
-  }
-
-  const cleanPath = path.replace(/^\/+/, '');
-  const encodedContent = encodeBase64Utf8(data);
+  const contentEncoded = isBase64 ? data : btoa(unescape(encodeURIComponent(data)));
   let lastError = null;
-
-  for(let attempt = 1; attempt <= 5; attempt++){
+  for(let attempt=1; attempt<=3; attempt++){
     try{
-      let sha = null;
-
+      let sha;
       try{
-        const existing = await githubApi(githubContentUrl(cleanPath, true), {method:'GET'});
+        const existing = await githubFetch(`${path}?ref=${encodeURIComponent(s.branch)}&t=${Date.now()}`, {method:'GET', headers:{'Cache-Control':'no-cache'}});
         sha = existing.sha;
       }catch(err){
-        if(!String(err.message).includes('Not Found')){
-          throw err;
-        }
+        if(!String(err.message).includes('Not Found')) throw err;
       }
-
-      return await githubApi(githubContentUrl(cleanPath, false), {
-        method:'PUT',
-        body:JSON.stringify({
-          message,
-          content:encodedContent,
-          branch:s.branch.trim(),
-          ...(sha ? {sha} : {})
-        })
-      });
-
+      return await githubFetch(path, {method:'PUT', body:JSON.stringify({message, content:contentEncoded, branch:s.branch, ...(sha?{sha}:{})})});
     }catch(err){
       lastError = err;
       const msg = String(err.message || '');
-
-      if(!msg.includes('does not match') && !msg.includes('sha') && !msg.includes('409')){
-        break;
-      }
-
-      await new Promise(resolve => setTimeout(resolve, 900 * attempt));
+      if(!msg.includes('does not match') && !msg.includes('sha')) break;
+      await new Promise(resolve => setTimeout(resolve, 650 * attempt));
     }
   }
-
-  throw lastError || new Error('GitHub publish failed after retrying.');
-}
-
-function encodeBase64Utf8(str){
-  return btoa(unescape(encodeURIComponent(str)));
-}
-
-function decodeBase64Utf8(base64){
-  return decodeURIComponent(escape(atob(base64)));
+  throw lastError;
 }
 
 function backupJson(){
@@ -1008,7 +572,6 @@ function backupJson(){
   a.download = 'site-content-backup.json';
   a.click();
 }
-
 function previewSite(){
   localStorage.setItem('siongPreviewContent', JSON.stringify(content));
   window.open('../index.html?preview=1', '_blank');
@@ -1016,30 +579,18 @@ function previewSite(){
 
 async function init(){
   $('loginBtn').addEventListener('click', async()=>{
-    if($('password').value !== ADMIN_PASSWORD){
-      alert('Wrong password');
-      return;
-    }
-
+    if($('password').value !== ADMIN_PASSWORD){ alert('Wrong password'); return; }
     await loadContent();
-
     $('loginScreen').classList.add('hidden');
     $('builder').classList.remove('hidden');
-
     renderEditor();
     renderPreview();
   });
-
-  $('password').addEventListener('keydown', e=>{
-    if(e.key === 'Enter') $('loginBtn').click();
-  });
-
+  $('password').addEventListener('keydown', e=>{ if(e.key==='Enter') $('loginBtn').click(); });
   qsa('.block-btn').forEach(btn=>btn.addEventListener('click',()=>switchBlock(btn.dataset.block)));
   qsa('.device').forEach(btn=>btn.addEventListener('click',()=>switchDevice(btn.dataset.device)));
-
   $('publishBtn').addEventListener('click', saveToGithub);
   $('backupBtn').addEventListener('click', backupJson);
   $('previewSiteBtn').addEventListener('click', previewSite);
 }
-
 init();
