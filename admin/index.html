@@ -11,13 +11,14 @@
     <section class="login-card">
       <div class="logo-dot">SD</div>
       <h1>Siong Design Visual Builder</h1>
-      <p>Login to edit text, navigation, dropdowns and photos with a Wix-style preview.</p>
+      <p>Login to edit website content, navigation, dropdowns and photos with a visual preview.</p>
       <label for="password">Admin password</label>
-      <input id="password" type="password" placeholder="Enter password" autocomplete="current-password" />
-      <button id="loginBtn" class="primary full">Login</button>
-      <small>Default password: <b>siongadmin</b>. Change this inside <code>admin/admin.js</code>.</small>
+      <input id="password" type="password" placeholder="Enter admin password" autocomplete="current-password" />
+      <button id="loginBtn" class="primary full" type="button">Login</button>
+      <small>Password can be changed inside the admin after login.</small>
     </section>
   </main>
+
 
   <main class="builder hidden" id="builder">
     <header class="builder-topbar">
@@ -35,18 +36,18 @@
     <aside class="left-panel">
       <h2>Blocks</h2>
       <p>Click a block to edit it. Drag items inside each block to reorder.</p>
-      <button class="block-btn active" data-block="home">🏠 Homepage Hero</button>
-      <button class="block-btn" data-block="nav">☰ Nav / Dropdown Bar</button>
-      <button class="block-btn" data-block="promo">🏷 Promo Box</button>
-      <button class="block-btn" data-block="proof">✓ Proof Points</button>
-      <button class="block-btn" data-block="calculator">🧮 Calculator Dropdowns</button>
-      <button class="block-btn" data-block="faq">❓ FAQ Editor</button>
-      <button class="block-btn" data-block="images">🖼 Photos</button>
-      <button class="block-btn" data-block="mobile">📱 Mobile Section Order</button>
-      <button class="block-btn" data-block="seo">🤖 AI & SEO</button>
-      <button class="block-btn" data-block="pages">📄 Page Content</button>
-      <button class="block-btn" data-block="github">⚙ Auto Save Setup</button>
-      <button class="block-btn" data-block="json">{ } Advanced JSON</button>
+      <button type="button" class="block-btn active" data-block="home">🏠 Homepage Hero</button>
+      <button type="button" class="block-btn" data-block="nav">☰ Nav / Dropdown Bar</button>
+      <button type="button" class="block-btn" data-block="promo">🏷 Promo Box</button>
+      <button type="button" class="block-btn" data-block="proof">✓ Proof Points</button>
+      <button type="button" class="block-btn" data-block="calculator">🧮 Calculator Dropdowns</button>
+      <button type="button" class="block-btn" data-block="faq">❓ FAQ Editor</button>
+      <button type="button" class="block-btn" data-block="images">🖼 Photos</button>
+      <button type="button" class="block-btn" data-block="mobile">📱 Mobile Section Order</button>
+      <button type="button" class="block-btn" data-block="seo">🤖 AI & SEO</button>
+      <button type="button" class="block-btn" data-block="pages">📄 Page Content</button>
+      <button type="button" class="block-btn" data-block="github">⚙ Auto Save Setup</button>
+      <button type="button" class="block-btn" data-block="json">{ } Advanced JSON</button>
     </aside>
 
     <section class="canvas-panel">
@@ -56,17 +57,17 @@
           <span>Choose a page preview. Click editable areas to edit them on the right.</span>
         </div>
         <div class="page-switch">
-          <button class="page-btn active" data-page="home">Home</button>
-          <button class="page-btn" data-page="services">Services</button>
-          <button class="page-btn" data-page="why">Why Us</button>
-          <button class="page-btn" data-page="works">Works</button>
-          <button class="page-btn" data-page="calculator">Calculator</button>
-          <button class="page-btn" data-page="faq">FAQ</button>
-          <button class="page-btn" data-page="contact">Contact</button>
+          <button type="button" class="page-btn active" data-page="home">Home</button>
+          <button type="button" class="page-btn" data-page="services">Services</button>
+          <button type="button" class="page-btn" data-page="why">Why Us</button>
+          <button type="button" class="page-btn" data-page="works">Works</button>
+          <button type="button" class="page-btn" data-page="calculator">Calculator</button>
+          <button type="button" class="page-btn" data-page="faq">FAQ</button>
+          <button type="button" class="page-btn" data-page="contact">Contact</button>
         </div>
         <div class="device-switch">
-          <button class="device active" data-device="desktop">Desktop</button>
-          <button class="device" data-device="mobile">Mobile</button>
+          <button type="button" class="device active" data-device="desktop">Desktop</button>
+          <button type="button" class="device" data-device="mobile">Mobile</button>
         </div>
       </div>
       <div class="website-canvas" id="visualPreview"></div>

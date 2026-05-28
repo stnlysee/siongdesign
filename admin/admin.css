@@ -184,3 +184,92 @@ html, body {
 .right-panel::-webkit-scrollbar-track {
   background: rgba(15,23,42,.08);
 }
+
+
+/* V30 admin fixes: password login restored, clickable toolbar, wider calculator fields */
+.builder {
+  display: grid;
+}
+
+.builder.hidden,
+.login-screen.hidden {
+  display: none !important;
+}
+
+/* Make page toolbar clearly clickable */
+.page-switch {
+  position: relative;
+  z-index: 200;
+  pointer-events: auto !important;
+}
+
+.page-switch .page-btn,
+.device-switch .device,
+.block-btn,
+.top-actions button {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  user-select: none;
+}
+
+/* Calculator category editor controls should be easy to edit */
+.calc-option-row,
+.mini-row.calc-option-row,
+.right-panel .calc-option-row {
+  display: grid !important;
+  grid-template-columns: minmax(240px, 1fr) 110px 96px !important;
+  gap: 10px !important;
+  align-items: center !important;
+}
+
+.calc-option-row input,
+.right-panel .calc-option-row input {
+  width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* On narrower screens, stack calculator option controls */
+@media (max-width: 1300px) {
+  .calc-option-row,
+  .mini-row.calc-option-row,
+  .right-panel .calc-option-row {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Strong scroll support for right forms */
+.right-panel {
+  overflow-y: auto !important;
+  padding-bottom: 320px !important;
+}
+
+#editorFields {
+  padding-bottom: 340px !important;
+}
+
+.website-canvas,
+.canvas-panel,
+.left-panel {
+  overflow-y: auto !important;
+}
+
+
+/* V30 password login restored */
+.login-screen {
+  min-height: 100vh;
+}
+
+.login-screen.hidden,
+.builder.hidden {
+  display: none !important;
+}
+
+.builder:not(.hidden) {
+  display: grid !important;
+}
+
+.login-card small code,
+.login-card small b {
+  display: none !important;
+}
