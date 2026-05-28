@@ -1,4 +1,3 @@
-/* Fixed GitHub Pages version. Login password: siongadmin. Do not use api/publish.js with GitHub Pages. */
 const ADMIN_PASSWORD = 'siongadmin';
 const CONTENT_PATH = 'content/site-content.json';
 
@@ -420,23 +419,8 @@ function fileToDataUrl(file){return new Promise((resolve,reject)=>{const r = new
 function dataUrlToBase64(dataUrl){return dataUrl.split(',')[1];}
 
 function getGithubSettings(){
-  try{
-    return JSON.parse(localStorage.getItem('siongGithubSettings')) || {
-      owner:'stnlysee',
-      repo:'siongdesign',
-      branch:'main',
-      token:'',
-      autoSave:false
-    };
-  }catch{
-    return {
-      owner:'stnlysee',
-      repo:'siongdesign',
-      branch:'main',
-      token:'',
-      autoSave:false
-    };
-  }
+  try{return JSON.parse(localStorage.getItem('siongGithubSettings')) || {owner:'',repo:'',branch:'main',token:'',autoSave:false};}
+  catch{return {owner:'',repo:'',branch:'main',token:'',autoSave:false};}
 }
 function saveSettingsFromForm(){
   const settings = {owner:$('ghOwner').value.trim(), repo:$('ghRepo').value.trim(), branch:$('ghBranch').value.trim() || 'main', token:$('ghToken').value.trim(), autoSave:$('autoSaveToggle').checked};
@@ -444,45 +428,12 @@ function saveSettingsFromForm(){
 }
 async function githubFetch(path, options={}){
   const s = getGithubSettings();
-
-  if(!s.owner || !s.repo || !s.branch || !s.token){
-    throw new Error('Missing GitHub settings. Open Auto Save Setup first.');
-  }
-
+  if(!s.owner || !s.repo || !s.branch || !s.token) throw new Error('Missing GitHub settings. Open Auto Save Setup first.');
   const cleanPath = path.replace(/^\/+/, '');
-  const url = `https://api.github.com/repos/${encodeURIComponent(s.owner.trim())}/${encodeURIComponent(s.repo.trim())}/contents/${cleanPath}`;
-
-  let res;
-
-  try{
-    res = await fetch(url, {
-      ...options,
-      cache:'no-store',
-      headers:{
-        'Accept':'application/vnd.github+json',
-        'Authorization':`Bearer ${s.token.trim()}`,
-        'X-GitHub-Api-Version':'2022-11-28',
-        ...(options.body ? {'Content-Type':'application/json'} : {}),
-        ...(options.headers || {})
-      }
-    });
-  }catch(err){
-    throw new Error('Failed to fetch. Try Chrome/Edge, disable VPN/adblock, and open https://stnlysee.github.io/siongdesign/admin/index.html');
-  }
-
-  const text = await res.text();
-  let body = {};
-
-  try{
-    body = text ? JSON.parse(text) : {};
-  }catch{
-    body = {message:text};
-  }
-
-  if(!res.ok){
-    throw new Error(body.message || `GitHub error ${res.status}`);
-  }
-
+  const url = `https://api.github.com/repos/${encodeURIComponent(s.owner)}/${encodeURIComponent(s.repo)}/contents/${cleanPath}`;
+  const res = await fetch(url, {...options, headers:{Authorization:`Bearer ${s.token}`,Accept:'application/vnd.github+json','Content-Type':'application/json',...(options.headers||{})}});
+  const body = await res.json().catch(()=>({}));
+  if(!res.ok) throw new Error(body.message || `GitHub error ${res.status}`);
   return body;
 }
 async function testGithubConnection(){
@@ -490,40 +441,21 @@ async function testGithubConnection(){
   catch(err){showStatus('Connection failed: ' + err.message, 'error');}
 }
 async function saveToGithub(){
-  if(isPublishing){
-    showStatus('Already publishing. Please wait a moment.', 'info');
-    return;
-  }
-
+  if(isPublishing){showStatus('Already publishing. Please wait a moment.', 'info'); return;}
   isPublishing = true;
-
   try{
-    showStatus('Publishing content to GitHub...', 'info');
-
+    showStatus('Publishing content and photos to GitHub...', 'info');
     normalizeContent();
-
-    await putFile(
-      CONTENT_PATH,
-      JSON.stringify(content,null,2),
-      'Update website content from visual admin builder'
-    );
-
-    /*
-      Actual photo upload is disabled in this GitHub Pages version to avoid browser upload errors.
-      This still saves text, promo boxes, WhatsApp, Facebook, nav, calculator and SEO.
-      To update actual photos, replace the image files manually in the GitHub assets folder.
-    */
+    await putFile(CONTENT_PATH, JSON.stringify(content,null,2), 'Update website content from visual admin builder');
+    for(const img of pendingImages){
+      const path = content.images[img.index]?.path;
+      if(path) await putFile(path, dataUrlToBase64(img.dataUrl), `Update image ${path}`, true);
+    }
     pendingImages = [];
-
     $('saveState').textContent = 'Published to GitHub';
-    showStatus('Published successfully. GitHub Pages may take 1-3 minutes to update.', 'success');
-
-  }catch(err){
-    console.error(err);
-    showStatus('Publish failed: ' + err.message, 'error');
-  }finally{
-    isPublishing = false;
-  }
+    showStatus('Published successfully. Vercel may take a short while to redeploy.', 'success');
+  }catch(err){showStatus('Publish failed: ' + err.message, 'error');}
+  finally{isPublishing = false;}
 }
 
 async function reloadLatestContentFromGithub(){
