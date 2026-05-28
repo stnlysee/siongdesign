@@ -5,3 +5,95 @@
 .mini-row input{width:100%}
 .preview-promo-stack{display:grid;gap:14px}
 .preview-promo-stack .preview-promo:not(:first-child){transform:scale(.96);transform-origin:top center}
+/* FIX: allow editor panels to scroll properly */
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Main builder layout */
+.builder {
+  height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+}
+
+/* Important for CSS grid scrolling */
+.left-panel,
+.canvas-panel,
+.right-panel,
+.website-canvas {
+  min-height: 0;
+}
+
+/* Left menu scroll */
+.left-panel {
+  height: calc(100vh - 64px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Middle preview scroll */
+.canvas-panel {
+  height: calc(100vh - 64px);
+  overflow: hidden;
+}
+
+.website-canvas {
+  height: calc(100vh - 122px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-bottom: 120px;
+}
+
+/* Right edit panel scroll */
+.right-panel {
+  height: calc(100vh - 64px);
+  max-height: calc(100vh - 64px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-bottom: 160px;
+}
+
+/* Make textareas easier to edit */
+.right-panel textarea {
+  min-height: 100px;
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+/* Keep top bar fixed inside editor */
+.builder-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+/* Mobile/tablet fallback */
+@media (max-width: 1000px) {
+  html,
+  body {
+    height: auto;
+    overflow: auto;
+  }
+
+  .builder {
+    height: auto;
+    max-height: none;
+    overflow: visible;
+  }
+
+  .left-panel,
+  .canvas-panel,
+  .right-panel,
+  .website-canvas {
+    height: auto;
+    max-height: none;
+    overflow: visible;
+  }
+
+  .right-panel {
+    padding-bottom: 80px;
+  }
+}
