@@ -97,3 +97,81 @@ body {
     padding-bottom: 80px;
   }
 }
+/* STRONG FIX: Promo Box editor scroll */
+.editor-panel,
+.edit-panel,
+.settings-panel,
+.right-panel,
+#editorPanel,
+#rightPanel {
+  min-height: 0 !important;
+  height: calc(100vh - 64px) !important;
+  max-height: calc(100vh - 64px) !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  padding-bottom: 220px !important;
+}
+
+/* Make the promo box card itself not trap the scroll */
+.promo-editor,
+.promo-box-editor,
+.promo-panel,
+.promo-list,
+.promo-card,
+.block-editor,
+.form-section {
+  min-height: 0 !important;
+  overflow: visible !important;
+}
+
+/* If promo box list is inside a scroll container */
+#promoBoxesEditor,
+#promoBoxEditor,
+[data-panel="promo"],
+[data-editor="promo"] {
+  max-height: none !important;
+  overflow: visible !important;
+  padding-bottom: 120px !important;
+}
+
+/* Textarea inside promo box */
+.right-panel textarea,
+.editor-panel textarea,
+.edit-panel textarea {
+  resize: vertical !important;
+  min-height: 90px !important;
+  max-height: 220px !important;
+  overflow-y: auto !important;
+}
+
+/* Make sure the whole app does not block the side panel scroll */
+.admin-shell,
+.builder-shell,
+.builder-layout,
+.visual-builder {
+  min-height: 0 !important;
+  overflow: hidden !important;
+}
+/* Emergency fallback: allow whole admin page to scroll */
+html,
+body {
+  height: auto !important;
+  min-height: 100% !important;
+  overflow-y: auto !important;
+}
+
+.builder,
+.builder-shell,
+.admin-shell,
+.visual-builder {
+  height: auto !important;
+  min-height: 100vh !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+.right-panel {
+  height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
