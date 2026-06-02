@@ -126,47 +126,30 @@
           },
           {
             "label": "Condo Casement Wardrobe from $240/ft run",
-            "value": 240
+            "value": 260
           },
           {
-            "label": "Condo Kitchen Cabinet - Top Unit Premium from $200/ft run",
-            "value": 200
+            "label": "HDB Sliding Wardrobe Promo from $220/ft run",
+            "value": 290
           },
           {
-            "label": "Condo Kitchen Cabinet - Bottom Unit Premium from $240/ft run",
-            "value": 240
+            "label": "Condo Kitchen Cabinet - Top & Bottom Unit Premium from $240/ft run",
+            "value": 260
           },
           {
-            "label": "Condo TV Feature Wall from $300/ft run",
+            "label": "Condo TV Feature Wall from from $300/ft run (Based on design)",
             "value": 300
           },
           {
-            "label": "Condo Commercial Display from $320/ft run",
+            "label": "Condo Commercial Display from $320/ft run (Based on design)",
             "value": 320
           }
         ]
       },
       {
-        "label": "Quartz",
+        "label": "",
         "value": "new",
-        "items": [
-          {
-            "label": "Not Required",
-            "value": 0
-          },
-          {
-            "label": "Width ≤ 700mm +$80/ft run",
-            "value": 80
-          },
-          {
-            "label": "Width 701-900mm +$120/ft run",
-            "value": 120
-          },
-          {
-            "label": "Width 901-1200mm +$180/ft run",
-            "value": 160
-          }
-        ]
+        "items": []
       }
     ],
     "carpentryTypes": [
