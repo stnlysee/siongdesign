@@ -233,7 +233,7 @@
     "heightOptions": [
       {
         "label": "Standard",
-        "value": 0
+        "value": 1
       },
       {
         "label": "Tall / More Compartments from+15%",
@@ -274,8 +274,8 @@
         "value": 0
       },
       {
-        "label": "Soft-Closing Drawer Set +$80",
-        "value": 350
+        "label": "Soft-Closing Drawer Set +$80/no",
+        "value": 80
       },
       {
         "label": "blum accessories additional charge",
