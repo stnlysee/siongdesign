@@ -260,12 +260,12 @@
     ],
     "internalOptions": [
       {
-        "label": "Premium: Laminate Both Sides +40%",
-        "value": 1.4
-      },
-      {
         "label": "Basic Internal Finish",
         "value": 1
+      },
+      {
+        "label": "Premium: Laminate Both Sides +40%",
+        "value": 1.4
       }
     ],
     "accessoryOptions": [
