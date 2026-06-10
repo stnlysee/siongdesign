@@ -270,7 +270,7 @@
     ],
     "accessoryOptions": [
       {
-        "label": "ncludes standard soft-close hinges and 3 units of small drawers.",
+        "label": "Includes standard soft-close hinges and 3 units of small drawers.",
         "value": 0
       },
       {
@@ -284,16 +284,12 @@
     ],
     "installationOptions": [
       {
-        "label": "Standard Installation +$350",
-        "value": 350
+        "label": "Standard Installation ",
+        "value": 0
       },
       {
         "label": "Large / Complex Installation +$650",
         "value": 650
-      },
-      {
-        "label": "Exclude Installation",
-        "value": 0
       }
     ]
   },
